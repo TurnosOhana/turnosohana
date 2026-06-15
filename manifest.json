@@ -1,16 +1,21 @@
 {
-"short_name": "Ohana",
-"name": "Cosmetología Ohana - Turnos",
-"icons": [
-{
-"src": "logo.png",
-"type": "image/png",
-"sizes": "512x512",
-"purpose": "any maskable"
-}
- ],
-"start_url": ".",
-"background_color": "#ffffff",
-"display": "standalone",
-"theme_color": "#ffffff"
+  "short_name": "Ohana",
+  "name": "Ohana - Sistema de Turnos",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#faf9f6",
+  "theme_color": "#d4a373",
+  "display": "standalone",
+  "orientation": "portrait"
 }
