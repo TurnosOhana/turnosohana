@@ -1,331 +1,239 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <link rel="manifest" href="manifest.json">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ohana - Sistema de Turnos</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ohana - Sistema de Turnos</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Scripts Oficiales de Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+<!-- Scripts Oficiales de Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
-  <style>
-    :root {
-      --primary: #d4a373;
-      --primary-light: #fefae0;
-      --dark: #4a4e69;
-      --light: #faf9f6;
-      --success: #a3b18a;
-      --text: #2b2d42;
-      --danger: #e63946;
-    }
+<style>
+:root {
+--primary: #d4a373;
+--primary-light: #fefae0;
+--dark: #4a4e69;
+--light: #faf9f6;
+--success: #a3b18a;
+--text: #2b2d42;
+--danger: #e63946;
+}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-    body { background-color: var(--light); color: var(--text); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
-    .app-container { width: 100%; max-width: 480px; background: #ffffff; border-radius: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); overflow: hidden; padding: 24px; position: relative; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+body { background-color: var(--light); color: var(--text); display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 20px; }
+.app-container { width: 100%; max-width: 480px; background: #ffffff; border-radius: 24px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); overflow: hidden; padding: 24px; position: relative; }
 
-    header { text-align: center; margin-bottom: 24px; position: relative; }
-    header h1 { font-size: 28px; color: var(--dark); font-weight: 600; letter-spacing: 1px; }
-    header p { font-size: 14px; color: #8d99ae; }
+header { text-align: center; margin-bottom: 24px; position: relative; }
+header h1 { font-size: 28px; color: var(--dark); font-weight: 600; letter-spacing: 1px; }
+header p { font-size: 14px; color: #8d99ae; }
 
-    .admin-trigger { position: absolute; top: 0; right: 0; color: #edf2f4; cursor: pointer; font-size: 14px; transition: color 0.3s; }
-    .admin-trigger:hover { color: var(--primary); }
+.admin-trigger { position: absolute; top: 0; right: 0; color: #edf2f4; cursor: pointer; font-size: 14px; transition: color 0.3s; }
+.admin-trigger:hover { color: var(--primary); }
 
-    .steps { display: flex; justify-content: space-between; margin-bottom: 30px; position: relative; }
-    .steps::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 2px; background: #edf2f4; z-index: 1; }
-    .step { width: 32px; height: 32px; background: #edf2f4; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #8d99ae; z-index: 2; }
-    .step.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(212, 163, 115, 0.4); }
-    .screen { display: none; }
-    .screen.active { display: block; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    h2 { font-size: 18px; margin-bottom: 16px; color: var(--dark); }
+.steps { display: flex; justify-content: space-between; margin-bottom: 30px; position: relative; }
+.steps::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 2px; background: #edf2f4; z-index: 1; }
+.step { width: 32px; height: 32px; background: #edf2f4; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #8d99ae; z-index: 2; }
+.step.active { background: var(--primary); color: white; box-shadow: 0 4px 10px rgba(212, 163, 115, 0.4); }
+.screen { display: none; }
+.screen.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+h2 { font-size: 18px; margin-bottom: 16px; color: var(--dark); }
 
-    /* Servicios */
-    .services-grid { display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto; padding-right: 5px; }
-    .card { border: 2px solid #edf2f4; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s ease; user-select: none; }
-    .card.selected { border-color: var(--primary); background-color: var(--primary-light); }
-    .card:hover { border-color: var(--primary); }
-    .card-info h3 { font-size: 15px; color: var(--dark); margin-bottom: 4px; text-align: left; }
-    .card-info p { font-size: 12px; color: #8d99ae; text-align: left; }
-    .card-price { font-weight: 600; color: var(--primary); }
+/* Servicios */
+.services-grid { display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto; padding-right: 5px; }
+.card { border: 2px solid #edf2f4; border-radius: 16px; padding: 16px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s ease; user-select: none; }
+.card.selected { border-color: var(--primary); background-color: var(--primary-light); }
+.card:hover { border-color: var(--primary); }
+.card-info h3 { font-size: 15px; color: var(--dark); margin-bottom: 4px; text-align: left; }
+.card-info p { font-size: 12px; color: #8d99ae; text-align: left; }
+.card-price { font-weight: 600; color: var(--primary); }
 
-    /* Métodos de Pago Opciones */
-    .payment-options { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; margin-bottom: 16px; }
-    .pay-card { border: 2px solid #edf2f4; border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.2s; text-align: left; }
-    .pay-card:hover, .pay-card.selected { border-color: var(--primary); background-color: var(--primary-light); }
-    .pay-card h4 { font-size: 14px; color: var(--dark); display: flex; justify-content: space-between; align-items: center; }
-    .pay-card p { font-size: 11px; color: #8d99ae; margin-top: 2px; }
-    .badge-discount { background: var(--success); color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: 600; }
+/* Métodos de Pago Opciones */
+.payment-options { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; margin-bottom: 16px; }
+.pay-card { border: 2px solid #edf2f4; border-radius: 12px; padding: 12px; cursor: pointer; transition: all 0.2s; text-align: left; }
+.pay-card:hover, .pay-card.selected { border-color: var(--primary); background-color: var(--primary-light); }
+.pay-card h4 { font-size: 14px; color: var(--dark); display: flex; justify-content: space-between; align-items: center; }
+.pay-card p { font-size: 11px; color: #8d99ae; margin-top: 2px; }
+.badge-discount { background: var(--success); color: white; font-size: 10px; padding: 2px 6px; border-radius: 10px; font-weight: 600; }
 
-    .form-group { margin-bottom: 16px; text-align: left; }
-    label { display: block; font-size: 13px; margin-bottom: 6px; font-weight: 500; color: var(--dark); text-align: left; }
-    input, textarea { width: 100%; padding: 12px 16px; border: 2px solid #edf2f4; border-radius: 12px; font-size: 14px; outline: none; }
-    input:focus, textarea:focus { border-color: var(--primary); }
+.form-group { margin-bottom: 16px; text-align: left; }
+label { display: block; font-size: 13px; margin-bottom: 6px; font-weight: 500; color: var(--dark); text-align: left; }
+input, textarea { width: 100%; padding: 12px 16px; border: 2px solid #edf2f4; border-radius: 12px; font-size: 14px; outline: none; }
+input:focus, textarea:focus { border-color: var(--primary); }
 
-    .hours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
-    .hour-chip { padding: 10px; text-align: center; border: 2px solid #edf2f4; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
-    .hour-chip.selected { background-color: var(--primary); border-color: var(--primary); color: white; }
-    .hour-chip.busy { background-color: #f1f3f5; border-color: #e9ecef; color: #adb5bd; cursor: not-allowed; text-decoration: line-through; opacity: 0.6; }
+.hours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.hour-chip { padding: 10px; text-align: center; border: 2px solid #edf2f4; border-radius: 12px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+.hour-chip.selected { background-color: var(--primary); border-color: var(--primary); color: white; }
+.hour-chip.busy { background-color: #f1f3f5; border-color: #e9ecef; color: #adb5bd; cursor: not-allowed; text-decoration: line-through; opacity: 0.6; }
 
-    .btn-container { display: flex; gap: 12px; margin-top: 24px; }
-    .btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; text-align: center; text-decoration: none; }
-    .btn-primary { background-color: var(--primary); color: white; }
-    .btn-secondary { background-color: #edf2f4; color: var(--dark); }
+.btn-container { display: flex; gap: 12px; margin-top: 24px; }
+.btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer; text-align: center; text-decoration: none; }
+.btn-primary { background-color: var(--primary); color: white; }
+.btn-secondary { background-color: #edf2f4; color: var(--dark); }
 
-    .ticket { border: 2px dashed var(--primary); background: var(--primary-light); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; }
-    .ticket i { font-size: 40px; color: var(--success); margin-bottom: 12px; }
-    .ticket h3 { color: var(--dark); margin-bottom: 12px; }
-    .ticket-details { text-align: left; background: white; padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 13px; line-height: 1.5; }
+.ticket { border: 2px dashed var(--primary); background: var(--primary-light); border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 20px; }
+.ticket i { font-size: 40px; color: var(--success); margin-bottom: 12px; }
+.ticket h3 { color: var(--dark); margin-bottom: 12px; }
+.ticket-details { text-align: left; background: white; padding: 12px; border-radius: 8px; margin-top: 12px; font-size: 13px; line-height: 1.5; }
 
-    /* Panel Administrador */
-    .admin-turn-card { background: #f8f9fa; border-left: 4px solid var(--primary); padding: 12px; border-radius: 8px; margin-bottom: 12px; position: relative; font-size: 13px; text-align: left; }
-    .admin-turn-card h4 { color: var(--dark); font-size: 14px; margin-bottom: 4px; }
-    .admin-turn-card p { color: #6c757d; margin-bottom: 2px; }
-    .delete-btn { position: absolute; top: 12px; right: 12px; color: var(--danger); cursor: pointer; border: none; background: none; font-size: 14px; }
-    .admin-back { display: block; margin-top: 15px; text-align: center; color: var(--dark); font-size: 13px; text-decoration: underline; cursor: pointer; }
-    .db-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-bottom: 15px; font-weight: 500; }
-    .status-paid { background-color: #e8f5e9; color: #2e7d32; font-weight: 600; padding: 2px 6px; border-radius: 6px; font-size: 11px; }
-  </style>
+/* Panel Administrador */
+.admin-turn-card { background: #f8f9fa; border-left: 4px solid var(--primary); padding: 12px; border-radius: 8px; margin-bottom: 12px; position: relative; font-size: 13px; text-align: left; }
+.admin-turn-card h4 { color: var(--dark); font-size: 14px; margin-bottom: 4px; }
+.admin-turn-card p { color: #6c757d; margin-bottom: 2px; }
+.delete-btn { position: absolute; top: 12px; right: 12px; color: var(--danger); cursor: pointer; border: none; background: none; font-size: 14px; }
+.admin-back { display: block; margin-top: 15px; text-align: center; color: var(--dark); font-size: 13px; text-decoration: underline; cursor: pointer; }
+.db-badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-bottom: 15px; font-weight: 500; }
+.status-paid { background-color: #e8f5e9; color: #2e7d32; font-weight: 600; padding: 2px 6px; border-radius: 6px; font-size: 11px; }
+</style>
 </head>
 <body>
 
 <div class="app-container">
-  <header>
-    <h1>OHANA</h1>
-    <p>Cosmetología & Estética</p>
-    <div class="admin-trigger" onclick="accessAdmin()"><i class="fas fa-cog"></i></div>
-  </header>
+<header>
+<h1>OHANA</h1>
+<p>Cosmetología & Estética</p>
+<div class="admin-trigger" onclick="accessAdmin()"><i class="fas fa-cog"></i></div>
+</header>
 
-  <div class="steps" id="progress-steps">
-    <div class="step active" id="step1-dot">1</div>
-    <div class="step" id="step2-dot">2</div>
-    <div class="step" id="step3-dot">3</div>
-    <div class="step" id="step4-dot">4</div>
-  </div>
+<div class="steps" id="progress-steps">
+<div class="step active" id="step1-dot">1</div>
+<div class="step" id="step2-dot">2</div>
+<div class="step" id="step3-dot">3</div>
+<div class="step" id="step4-dot">4</div>
+</div>
 
-  <!-- PANTALLA 1: Servicios -->
-  <div class="screen active" id="screen-1">
-    <h2>Selecciona uno o más servicios</h2>
-    <div class="services-grid">
-      <div class="card" onclick="selectService('Esmaltado semipermanente', 19999, this)">
-        <div class="card-info"><h3>Esmaltado semipermanente</h3><p><i class="far fa-clock"></i> 60 min</p></div>
-        <div class="card-price">$19999</div>
-         </div>
-      <div class="card" onclick="selectService('Capping + Esmaltado Semi', 21999, this)">
-        <div class="card-info"><h3>Capping + Esmaltado Semi</h3><p><i class="far fa-clock"></i> 60 min</p></div>
-        <div class="card-price">$21999</div>
-      </div>
-      <div class="card" onclick="selectService('Capping con poligel + Esmaltado', 24999, this)">
-        <div class="card-info"><h3>Capping con poligel + Esmaltado</h3><p><i class="far fa-clock"></i> 60 min</p></div>
-        <div class="card-price">$24999</div>
-         </div>
-      <div class="card" onclick="selectService('Softgel + Esmaltado Semi', 24999, this)">
-        <div class="card-info"><h3>Softgel + Esmaltado Semi</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$24999</div>
-      </div>
-      <div class="card" onclick="selectService('Service Softgel', 21999, this)">
-        <div class="card-info"><h3>Service Softgel</h3><p><i class="far fa-clock"></i> 60 min</p></div>
-        <div class="card-price">$21999</div>
-         </div>
-      <div class="card" onclick="selectService('Retirado de Esmaltado, Capping, Softgel ', 9999, this)">
-        <div class="card-info"><h3>Retirado de Esmaltado, Capping, Softgel</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$9999</div>
-      </div>
-      <div class="card" onclick="selectService('Spa de Manos', 11999, this)">
-        <div class="card-info"><h3>Spa de Manos</h3><p><i class="far fa-clock"></i> 30 min</p></div>
-        <div class="card-price">$11999</div>
-      </div>
-      <div class="card" onclick="selectService('Lifting', 17999, this)">
-        <div class="card-info"><h3>Lifting</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$17999</div>
-         </div>
-      <div class="card" onclick="selectService('Lifting + Tinte', 21999, this)">
-        <div class="card-info"><h3>Lifting + Tinte</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$21999</div>
-      </div>
-      <div class="card" onclick="selectService('Laminado', 17999, this)">
-        <div class="card-info"><h3>Laminado</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$17999</div>
-      </div>
-      <div class="card" onclick="selectService('Perfilado', 11999, this)">
-        <div class="card-info"><h3>Perfilado</h3><p><i class="far fa-clock"></i> 20 min</p></div>
-        <div class="card-price">$11999</div>
-         </div>
-      <div class="card" onclick="selectService('Laminado, Perfilado, Henna', 24999, this)">
-        <div class="card-info"><h3>Laminado, Perfilado, Henna</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$24999</div>
-      </div>
-      <div class="card" onclick="selectService('Microblading', 79999, this)">
-        <div class="card-info"><h3>Microblading</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$79999</div>
-         </div>
-      <div class="card" onclick="selectService('Limpieza Facial Profunda', 24999, this)">
-        <div class="card-info"><h3>Limpieza Facial Profunda</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$24999</div>
-      </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Peeling', 27999, this)">
-        <div class="card-info"><h3>Limpieza Facial + Peeling</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$27999</div>
-         </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Dermaplaning', 29999, this)">
-        <div class="card-info"><h3>Limpieza Facial+ Dermaplaning</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$29999</div>
-      </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Peeling + Dermaplaning', 35999, this)">
-        <div class="card-info"><h3>Limpieza Facial + Peeling + Dermaplaning</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$35999</div>
-         </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Microneedling', 34999, this)">
-        <div class="card-info"><h3>Limpieza Facial + Microneedling</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$34999</div>
-      </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Dermaplaning + Microneedling', 37999, this)">
-        <div class="card-info"><h3>Limpieza Facial + Dermaplaning + Microblading</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$37999</div>
-         </div>
-      <div class="card" onclick="selectService('Limpieza Facial + BBlips', 31999, this)">
-        <div class="card-info"><h3>Limpieza Facial + BBlips</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$31999</div>
-      </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Radio Frecuencia', 23999, this)">
-        <div class="card-info"><h3>Limpieza Facial + Radio Frecuencia</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$23999</div>
-      </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Masajes Relajantes o Drenaje Linfático Facial', 21999, this)">
-        <div class="card-info"><h3>Limpieza Facial + Masajes Relajantes u Ohana Drenaje</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$21999</div>
-         </div>
-      <div class="card" onclick="selectService('Limpieza Facial + Maderoterapia', 25999, this)">
-        <div class="card-info"><h3>Limpieza Facial + Maderoterapia</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$25999</div>
-      </div>
-      <div class="card" onclick="selectService('Limpieza Profunda de espalda', 24999, this)">
-        <div class="card-info"><h3>Limpieza Profunda de espalda</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$24999</div>
-      </div>
-      <div class="card" onclick="selectService('Limpieza Profunda en piernas y gluteos', 24999, this)">
-        <div class="card-info"><h3>Limpieza Profunda en piernas y gluteos</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$24999</div>
-      </div>
-      <div class="card" onclick="selectService('Masajes relajantes', 15999, this)">
-        <div class="card-info"><h3>Masajes relajantes</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$15999</div>
-      </div>
-      <div class="card" onclick="selectService('Masaje modelador + Radio frecuencia + Drenaje linfatico manual', 17999, this)">
-        <div class="card-info"><h3>Masaje modelador + Radio frecuencia + Drenaje...</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$17999</div>
-         </div>
-      <div class="card" onclick="selectService('Drenaje Linfático', 9999, this)">
-        <div class="card-info"><h3>Lifting</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$9999</div>
-      </div>
-      <div class="card" onclick="selectService('Tratamiento piernas cansadas', 19999, this)">
-        <div class="card-info"><h3>Tratamiento piernas cansadas</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$19999</div>
-      </div>
-      <div class="card" onclick="selectService('PACK 6 sesiones limpieza facial + radio frecuencia', 89999, this)">
-        <div class="card-info"><h3>PACK 6 sesiones limpieza facial + radio...</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$89999</div>
-         </div>
-      <div class="card" onclick="selectService('PACK 6 sesiones de Peeling', 119999, this)">
-        <div class="card-info"><h3>PACK 6 sesiones de Peeling</h3><p><i class="far fa-clock"></i> 45 min</p></div>
-        <div class="card-price">$119999</div>
-      </div>
-      <div class="card" onclick="selectService('PACK 6 sesiones de masajes reductores + radio frecuencia u ondas rusas', 79999, this)">
-        <div class="card-info"><h3>PACK 6 sesiones masajes reductores...</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$79999</div>
-      </div>
-      <div class="card" onclick="selectService('PACK 4 sesiones Maderoterapia corporal + radio frecuencia u ondas rusas', 59999, this)">
-        <div class="card-info"><h3>PACK 4 sesiones Maderoterapia...</h3><p><i class="far fa-clock"></i> 120 min</p></div>
-        <div class="card-price">$59999</div>
-      </div>
-    </div>
-    <div class="btn-container">
-      <button class="btn btn-primary" onclick="nextScreen(2)" id="btn-goto-2" disabled style="opacity: 0.5;">Siguiente</button>
-    </div>
-  </div>
+<!-- PANTALLA 1: Servicios -->
+<div class="screen active" id="screen-1">
+<h2>Selecciona uno o más servicios</h2>
+<div class="services-grid">
+<div class="card" onclick="selectService('Esmaltado semipermanente', 19999, this)">
+<div class="card-info"><h3>Esmaltado semipermanente</h3><p><i class="far fa-clock"></i> 45 min</p></div>
+<div class="card-price"> 24999</div>
+</div>
+<div class="card" onclick="selectService('Service Softgel', 21999, this)">
+<div class="card-info"><h3>Service Softgel</h3><p><i class="far fa-clock"></i> 60 min</p></div>
+<div class="card-price"> 11999</div>
+</div>
+<div class="card" onclick="selectService('Lifting', 17999, this)">
+<div class="card-info"><h3>Lifting</h3><p><i class="far fa-clock"></i> 45 min</p></div>
+<div class="card-price"> 17999</div>
+</div>
+<div class="card" onclick="selectService('Perfilado', 11999, this)">
+<div class="card-info"><h3>Perfilado</h3><p><i class="far fa-clock"></i> 20 min</p></div>
+<div class="card-price"> 79999</div>
+</div>
+<div class="card" onclick="selectService('Limpieza Facial + Peeling', 27999, this)">
+<div class="card-info"><h3>Limpieza Facial + Peeling</h3><p><i class="far fa-clock"></i> 120 min</p></div>
+<div class="card-price"> 35999</div>
+</div>
+<div class="card" onclick="selectService('Limpieza Facial + Dermaplaning + Microblading', 37999, this)">
+<div class="card-info"><h3>Limpieza Facial + Dermaplaning + Microblading</h3><p><i class="far fa-clock"></i> 120 min</p></div>
+<div class="card-price"> 23999</div>
+</div>
+<div class="card" onclick="selectService('Limpieza Facial + Masajes Relajantes o Drenaje Linfático Facial', 21999, this)">
+<div class="card-info"><h3>Limpieza Facial + Masajes Relajantes u Ohana Drenaje</h3><p><i class="far fa-clock"></i> 120 min</p></div>
+<div class="card-price"> 19999</div>
+</div>
+<div class="card" onclick="selectService('Limpieza Profunda en piernas y gluteos', 19999, this)">
+<div class="card-info"><h3>Limpieza Profunda en piernas y gluteos</h3><p><i class="far fa-clock"></i> 120 min</p></div>
+<div class="card-price"> 15999</div>
+</div>
+<div class="card" onclick="selectService('Masaje modelador + Radio frecuencia + Drenaje linfatico manual', 14999, this)">
+<div class="card-info"><h3>Masaje modelador + Radio frecuencia + Drenaje...</h3><p><i class="far fa-clock"></i> 120 min</p></div>
+<div class="card-price"> 19999</div>
+</div>
+<div class="card" onclick="selectService('PACK 6 sesiones limpieza facial + radio frecuencia', 89999, this)">
+<div class="card-info"><h3>PACK 6 sesiones limpieza facial + radio...</h3><p><i class="far fa-clock"></i> 120 min</p></div>
+<div class="card-price"> 79999</div>
+</div>
+<div class="card" onclick="selectService('PACK 4 sesiones Maderoterapia corporal + radio frecuencia u ondas rusas', 59999, this)">
+<div class="card-info"><h3>PACK 4 sesiones Maderoterapia...</h3><p><i class="far fa-clock"></i> 120 min</p></div>
+<div class="card-price">$`59999</div>
+</div>
+</div>
+<div class="btn-container">
+<button class="btn btn-primary" onclick="nextScreen(2)" id="btn-goto-2" disabled style="opacity: 0.5;">Siguiente</button>
+</div>
+</div>
 
-  <!-- PANTALLA 2: Fecha y Hora -->
-  <div class="screen" id="screen-2">
-    <h2>Elige Fecha y Hora</h2>
-    <div class="form-group">
-      <label for="booking-date">Fecha</label>
-      <input type="date" id="booking-date" onchange="updateAvailableHours()">
-    </div>
-    <label id="label-horarios">Horarios Disponibles</label>
-    <div class="hours-grid" id="hours-container">
-      <p style="color:#8d99ae; font-size:13px; font-style:italic; grid-column:span 3; text-align:center;">Selecciona una fecha primero.</p>
-    </div>
-    <div class="btn-container">
-      <button class="btn btn-secondary" onclick="prevScreen(1)">Volver</button>
-      <button class="btn btn-primary" onclick="goToScreen3()" id="btn-goto-3" disabled style="opacity: 0.5;">Siguiente</button>
-    </div>
-  </div>
+<!-- PANTALLA 2: Fecha y Hora -->
+<div class="screen" id="screen-2">
+<h2>Elige Fecha y Hora</h2>
+<div class="form-group">
+<label for="booking-date">Fecha</label>
+<input type="date" id="booking-date" onchange="updateAvailableHours()">
+</div>
+<label id="label-horarios">Horarios Disponibles</label>
+<div class="hours-grid" id="hours-container">
+<p style="color:#8d99ae; font-size:13px; font-style:italic; grid-column:span 3; text-align:center;">Selecciona una fecha primero.</p>
+</div>
+<div class="btn-container">
+<button class="btn btn-secondary" onclick="prevScreen(1)">Volver</button>
+<button class="btn btn-primary" onclick="goToScreen3()" id="btn-goto-3" disabled style="opacity: 0.5;">Siguiente</button>
+</div>
+</div>
 
-  <!-- PANTALLA 3: Tus Datos y Opción de Pago -->
-  <div class="screen" id="screen-3">
-    <h2>Completa tus datos</h2>
-    <div class="form-group">
-      <label for="client-name">Nombre Completo</label>
-      <input type="text" id="client-name" placeholder="Ej. Valentina Gómez" oninput="validateClientForm()">
-    </div>
-    <div class="form-group">
-      <label for="client-phone">WhatsApp</label>
-      <input type="tel" id="client-phone" placeholder="Ej. 3412345678" oninput="validateClientForm()">
-    </div>
+<!-- PANTALLA 3: Tus Datos y Opción de Pago -->
+<div class="screen" id="screen-3">
+<h2>Completa tus datos</h2>
+<div class="form-group">
+<label for="client-name">Nombre Completo</label>
+<input type="text" id="client-name" placeholder="Ej. Valentina Gómez" oninput="validateClientForm()">
+</div>
+<div class="form-group">
+<label for="client-phone">WhatsApp</label>
+<input type="tel" id="client-phone" placeholder="Ej. 3412345678" oninput="validateClientForm()">
+</div>
 
-    <label>Modalidad de Pago para reservar</label>
-    <div class="payment-options">
-      <div class="pay-card" id="pay-sena" onclick="selectPayment('Seña', 5000)">
-        <h4><span>Dejar Seña</span> <strong id="val-sena">$5000</strong></h4>
-        <p>Asegura tu turno abonando la seña por Mercado Pago.</p>
-      </div>
-      <div class="pay-card" id="pay-total" onclick="selectPayment('Pago Completo', 0)">
-        <h4><span>Pago Completo</span> <span class="badge-discount">10% OFF</span> <strong id="val-total">$0</strong></h4>
-        <p>Abona el total neto directamente de forma online.</p>
-      </div>
-    </div>
+<label>Modalidad de Pago para reservar</label>
+<div class="payment-options">
+<div class="pay-card" id="pay-sena" onclick="selectPayment('Seña', 5000)">
+<h4><span>Dejar Seña</span> <strong id="val-sena">$5000&lt;/strong&gt;&lt;/h4&gt; &lt;p&gt;Asegura tu turno abonando la seña por Mercado Pago.&lt;/p&gt; &lt;/div&gt; &lt;div class="pay-card" id="pay-total" onclick="selectPayment('Pago Completo', 0)"&gt; &lt;h4&gt;&lt;span&gt;Pago Completo&lt;/span&gt; &lt;span class="badge-discount"&gt;10% OFF&lt;/span&gt; &lt;strong id="val-total"&gt;$0</strong></h4>
+<p>Abona el total neto directamente de forma online.</p>
+</div>
+</div>
 
-    <div class="form-group" style="margin-top: 15px;">
-      <label for="client-notes">Notas (Opcional)</label>
-      <textarea id="client-notes" rows="2" placeholder="Alguna preferencia..."></textarea>
-    </div>
-    <div class="btn-container">
-      <button class="btn btn-secondary" onclick="prevScreen(2)">Volver</button>
-      <button class="btn btn-primary" onclick="confirmBooking()" id="btn-confirm" disabled style="opacity: 0.5;">Confirmar Turno</button>
-    </div>
-  </div>
+<div class="form-group" style="margin-top: 15px;">
+<label for="client-notes">Notas (Opcional)</label>
+<textarea id="client-notes" rows="2" placeholder="Alguna preferencia..."></textarea>
+</div>
+<div class="btn-container">
+<button class="btn btn-secondary" onclick="prevScreen(2)">Volver</button>
+<button class="btn btn-primary" onclick="confirmBooking()" id="btn-confirm" disabled style="opacity: 0.5;">Confirmar Turno</button>
+</div>
+</div>
 
-  <!-- PANTALLA 4: Confirmación -->
-  <div class="screen" id="screen-4">
-    <div class="ticket">
-      <i class="far fa-check-circle"></i>
-      <h3>¡Turno Reservado!</h3>
-      <div class="ticket-details" id="ticket-content"></div>
-    </div>
-    <button class="btn btn-primary" style="background-color: #25D366; margin-bottom: 12px; width:100%; font-weight: 600;" onclick="sendWhatsApp()">
-      <i class="fab fa-whatsapp"></i> Compartir Comprobante
-    </button>
-    <button class="btn btn-secondary" style="width:100%;" onclick="resetApp()">Reservar otro</button>
-  </div>
+<!-- PANTALLA 4: Confirmación -->
+<div class="screen" id="screen-4">
+<div class="ticket">
+<i class="far fa-check-circle"></i>
+<h3>¡Turno Reservado!</h3>
+<div class="ticket-details" id="ticket-content"></div>
+</div>
+<button class="btn btn-primary" style="background-color: #25D366; margin-bottom: 12px; width:100%; font-weight: 600;" onclick="sendWhatsApp()">
+<i class="fab fa-whatsapp"></i> Compartir Comprobante
+</button>
+<button class="btn btn-secondary" style="width:100%;" onclick="resetApp()">Reservar otro</button>
+</div>
 
-  <!-- PANTALLA EXTRA: MODO ADMINISTRADOR -->
-  <div class="screen" id="screen-admin">
-    <h2>Panel de Control Agenda</h2>
-    <div id="db-status-badge"></div>
+<!-- PANTALLA EXTRA: MODO ADMINISTRADOR -->
+<div class="screen" id="screen-admin">
+<h2>Panel de Control Agenda</h2>
+<div id="db-status-badge"></div>
 
-    <div style="margin-bottom: 15px; text-align: left;">
-      <label for="admin-filter-date">Filtrar por Día:</label>
-      <input type="date" id="admin-filter-date" onchange="renderAdminTurnos()">
-    </div>
-    <div id="admin-turnos-lista" style="max-height: 350px; overflow-y: auto; padding-right: 5px;">
-      <!-- Aquí se cargan los turnos -->
-    </div>
-    <span class="admin-back" onclick="exitAdmin()">← Volver a Vista Cliente</span>
-  </div>
+<div style="margin-bottom: 15px; text-align: left;">
+<label for="admin-filter-date">Filtrar por Día:</label>
+<input type="date" id="admin-filter-date" onchange="renderAdminTurnos()">
+</div>
+<div id="admin-turnos-lista" style="max-height: 350px; overflow-y: auto; padding-right: 5px;">
+<!-- Aquí se cargan los turnos -->
+</div>
+<span class="admin-back" onclick="exitAdmin()">← Volver a Vista Cliente</span>
+</div>
 
 </div>
 
@@ -334,14 +242,14 @@
 // CONFIGURACIÓN DE FIREBASE
 // ==========================================
 const firebaseConfig = {
-  apiKey: "AIzaSyDz1dNKpBRZkTwghdErNuj-9VOd22jUBL0",
-  authDomain: "estetica-cintia.firebaseapp.com",
-  databaseURL: "https://estetica-cintia-default-rtdb.firebaseio.com",
-  projectId: "estetica-cintia",
-  storageBucket: "estetica-cintia.firebasestorage.app",
-  messagingSenderId: "841523916192",
-  appId: "1:841523916192:web:a57db7eabc91a0cc78c8c5",
-  measurementId: "G-DZ348GCB9W"
+apiKey: "AIzaSyDz1dNKpBRZkTwghdErNuj-9VOd22jUBL0",
+authDomain: "estetica-cintia.firebaseapp.com",
+databaseURL: "https://estetica-cintia-default-rtdb.firebaseio.com",
+projectId: "estetica-cintia",
+storageBucket: "estetica-cintia.firebasestorage.app",
+messagingSenderId: "841523916192",
+appId: "1:841523916192:web:a57db7eabc91a0cc78c8c5",
+measurementId: "G-DZ348GCB9W"
 };
 
 let database = null;
@@ -349,326 +257,324 @@ let isFirebaseActive = false;
 let todosLosTurnos = {};
 
 let bookingData = {
-  services: [],
-  prices: [],
-  totalPrice: 0,
-  date: '',
-  hour: '',
-  name: '',
-  phone: '',
-  notes: '',
-  paymentType: '',
-  amountPaid: 0
+services: [],
+prices: [],
+totalPrice: 0,
+date: '',
+hour: '',
+name: '',
+phone: '',
+notes: '',
+paymentType: '',
+amountPaid: 0
 };
 
 const agendaHorarios = {
-  2: ["09:00", "10:30", "15:00", "16:30"], // Martes
-  4: ["09:00", "10:30", "12:00", "14:00"], // Jueves
-  5: ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00", "18:30"] // Viernes
+2: ["09:00", "10:30", "15:00", "16:30"], // Martes
+4: ["09:00", "10:30", "12:00", "14:00"], // Jueves
+5: ["09:00", "10:30", "12:00", "14:00", "15:30", "17:00", "18:30"] // Viernes
 };
 
 if (firebaseConfig.apiKey !== "TU_API_KEY_AQUÍ" && firebaseConfig.apiKey.trim() !== "") {
-  try {
-    firebase.initializeApp(firebaseConfig);
-    database = firebase.database();
-    isFirebaseActive = true;
-  } catch(e) { console.log("Firebase Error:", e); }
+try {
+firebase.initializeApp(firebaseConfig);
+database = firebase.database();
+isFirebaseActive = true;
+} catch(e) { console.log("Firebase Error:", e); }
 }
 
 document.getElementById('booking-date').min = new Date().toISOString().split('T')[0];
 
 if (isFirebaseActive && database) {
-  database.ref('turnos').on('value', (snapshot) => {
-    todosLosTurnos = snapshot.val() || {};
-    renderAdminTurnos();
-    if(document.getElementById('screen-2').classList.contains('active')) {
-      updateAvailableHours();
-    }
-  });
+database.ref('turnos').on('value', (snapshot) => {
+todosLosTurnos = snapshot.val() || {};
+renderAdminTurnos();
+if(document.getElementById('screen-2').classList.contains('active')) {
+updateAvailableHours();
+}
+});
 }
 
 function updateAvailableHours() {
-  const dateInput = document.getElementById('booking-date').value;
-  const container = document.getElementById('hours-container');
-  const btnNext = document.getElementById('btn-goto-3');
+const dateInput = document.getElementById('booking-date').value;
+const container = document.getElementById('hours-container');
+const btnNext = document.getElementById('btn-goto-3');
 
-  container.innerHTML = '';
-  bookingData.date = dateInput;
-  bookingData.hour = '';
-  btnNext.disabled = true;
-  btnNext.style.opacity = '0.5';
+container.innerHTML = '';
+bookingData.date = dateInput;
+bookingData.hour = '';
+btnNext.disabled = true;
+btnNext.style.opacity = '0.5';
 
-  if (!dateInput) return;
+if (!dateInput) return;
 
-  const dateParts = dateInput.split('-');
-  const chosenDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
-  const dayOfWeek = chosenDate.getDay();
+const dateParts = dateInput.split('-');
+const chosenDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+const dayOfWeek = chosenDate.getDay();
 
-  if (!agendaHorarios[dayOfWeek]) {
-    container.innerHTML = '<p style="color:var(--danger); font-size:13px; font-weight:500; grid-column:span 3; text-align:center;"><i class="fas fa-exclamation-triangle"></i> Los días seleccionados no se atienden turnos. Por favor elige un Martes, Jueves o Viernes.</p>';
-    return;
-  }
+if (!agendaHorarios[dayOfWeek]) {
+container.innerHTML = '<p style="color:var(--danger); font-size:13px; font-weight:500; grid-column:span 3; text-align:center;"><i class="fas fa-exclamation-triangle"></i> Los días seleccionados no se atienden turnos. Por favor elige un Martes, Jueves o Viernes.</p>';
+return;
+}
 
-  const horasDelDia = agendaHorarios[dayOfWeek];
-  let horasOcupadas = [];
-  for (let id in todosLosTurnos) {
-    if (todosLosTurnos[id].date === dateInput) {
-      horasOcupadas.push(todosLosTurnos[id].hour);
-    }
-  }
+const horasDelDia = agendaHorarios[dayOfWeek];
+let horasOcupadas = [];
+for (let id in todosLosTurnos) {
+if (todosLosTurnos[id].date === dateInput) {
+horasOcupadas.push(todosLosTurnos[id].hour);
+}
+}
 
-  horasDelDia.forEach(hora => {
-    const chip = document.createElement('div');
-    chip.className = 'hour-chip';
-    chip.innerText = hora;
+horasDelDia.forEach(hora => {
+const chip = document.createElement('div');
+chip.className = 'hour-chip';
+chip.innerText = hora;
 
-    if (horasOcupadas.includes(hora)) {
-      chip.classList.add('busy');
-      chip.title = "Horario ya reservado";
-    } else {
-      chip.onclick = function() { selectHour(hora, chip); };
-    }
-    container.appendChild(chip);
-  });
+if (horasOcupadas.includes(hora)) {
+chip.classList.add('busy');
+chip.title = "Horario ya reservado";
+} else {
+chip.onclick = function() { selectHour(hora, chip); };
+}
+container.appendChild(chip);
+});
 }
 
 function selectHour(hour, element) {
-  bookingData.hour = hour;
-  document.querySelectorAll('.hour-chip').forEach(c => c.classList.remove('selected'));
-  element.classList.add('selected');
+bookingData.hour = hour;
+document.querySelectorAll('.hour-chip').forEach(c => c.classList.remove('selected'));
+element.classList.add('selected');
 
-  const btn = document.getElementById('btn-goto-3');
-  btn.disabled = false;
-  btn.style.opacity = '1';
+const btn = document.getElementById('btn-goto-3');
+btn.disabled = false;
+btn.style.opacity = '1';
 }
 
 function selectService(name, price, element) {
-  const index = bookingData.services.indexOf(name);
+const index = bookingData.services.indexOf(name);
 
-  if (index > -1) {
-    bookingData.services.splice(index, 1);
-    bookingData.prices.splice(index, 1);
-    element.classList.remove('selected');
-  } else {
-    bookingData.services.push(name);
-    bookingData.prices.push(price);
-    element.classList.add('selected');
-  }
+if (index > -1) {
+bookingData.services.splice(index, 1);
+bookingData.prices.splice(index, 1);
+element.classList.remove('selected');
+} else {
+bookingData.services.push(name);
+bookingData.prices.push(price);
+element.classList.add('selected');
+}
 
-  bookingData.totalPrice = bookingData.prices.reduce((total, p) => total + p, 0);
+bookingData.totalPrice = bookingData.prices.reduce((total, p) => total + p, 0);
 
-  const btn = document.getElementById('btn-goto-2');
-  if (bookingData.services.length > 0) {
-    btn.disabled = false;
-    btn.style.opacity = '1';
-  } else {
-    btn.disabled = true;
-    btn.style.opacity = '0.5';
-  }
+const btn = document.getElementById('btn-goto-2');
+if (bookingData.services.length > 0) {
+btn.disabled = false;
+btn.style.opacity = '1';
+} else {
+btn.disabled = true;
+btn.style.opacity = '0.5';
+}
 }
 
 function goToScreen3() {
-  const precioOriginal = bookingData.totalPrice;
-  const senaFija = 5000; 
-  const totalConDescuento = precioOriginal * 0.90;
+const precioOriginal = bookingData.totalPrice;
+const senaFija = 5000;
+const totalConDescuento = precioOriginal * 0.90;
 
-  document.getElementById('val-sena').innerText = "$" + senaFija; 
-  document.getElementById('val-total').innerText = "$" + totalConDescuento.toFixed(0);
+document.getElementById('val-sena').innerText = "$" + senaFija; document.getElementById('val-total').innerText = "$" + totalConDescuento.toFixed(0);
 
-  nextScreen(3);
+nextScreen(3);
 }
 
 function selectPayment(type, amount) {
-  bookingData.paymentType = type;
+bookingData.paymentType = type;
 
-  if (type === 'Seña') {
-    bookingData.amountPaid = 5000;
-    document.getElementById('pay-sena').classList.add('selected');
-    document.getElementById('pay-total').classList.remove('selected');
-  } else {
-    bookingData.amountPaid = bookingData.totalPrice * 0.90;
-    document.getElementById('pay-total').classList.add('selected');
-    document.getElementById('pay-sena').classList.remove('selected');
-  }
-  validateClientForm();
+if (type === 'Seña') {
+bookingData.amountPaid = 5000;
+document.getElementById('pay-sena').classList.add('selected');
+document.getElementById('pay-total').classList.remove('selected');
+} else {
+bookingData.amountPaid = bookingData.totalPrice * 0.90;
+document.getElementById('pay-total').classList.add('selected');
+document.getElementById('pay-sena').classList.remove('selected');
+}
+validateClientForm();
 }
 
 function confirmBooking() {
-  let duplicado = false;
-  for (let id in todosLosTurnos) {
-    if (todosLosTurnos[id].date === bookingData.date && todosLosTurnos[id].hour === bookingData.hour) {
-      duplicado = true;
-      break;
-    }
-  }
+let duplicado = false;
+for (let id in todosLosTurnos) {
+if (todosLosTurnos[id].date === bookingData.date && todosLosTurnos[id].hour === bookingData.hour) {
+duplicado = true;
+break;
+}
+}
 
-  if (duplicado) {
-    alert("¡Uh! Alguien acaba de reservar este mismo horario hace unos instantes. Por favor, selecciona otra hora.");
-    prevScreen(2);
-    updateAvailableHours();
-    return;
-  }
+if (duplicado) {
+alert("¡Uh! Alguien acaba de reservar este mismo horario hace unos instantes. Por favor, selecciona otra hora.");
+prevScreen(2);
+updateAvailableHours();
+return;
+}
 
-  bookingData.name = document.getElementById('client-name').value.trim();
-  bookingData.phone = document.getElementById('client-phone').value.trim();
-  bookingData.notes = document.getElementById('client-notes').value.trim();
+bookingData.name = document.getElementById('client-name').value.trim();
+bookingData.phone = document.getElementById('client-phone').value.trim();
+bookingData.notes = document.getElementById('client-notes').value.trim();
 
-  const listaServicios = bookingData.services.join(', ');
+const listaServicios = bookingData.services.join(', ');
 
-  document.getElementById('ticket-content').innerHTML = `
-    <p><strong>Clienta:</strong> ${bookingData.name}</p>
-    <p><strong>Servicios:</strong> ${listaServicios}</p> 
-    <p><strong>Fecha y Hora:</strong> ${bookingData.date} - ${bookingData.hour} hs</p> 
-    <p><strong>Modalidad:</strong> ${bookingData.paymentType} ($${bookingData.amountPaid.toFixed(0)})</p> 
-    <p style="color:var(--primary); font-weight:500; font-size:11px; margin-top:5px;"><i class="fas fa-info-circle"></i> Tu turno se está registrando. Por favor, envía la captura del pago por WhatsApp.</p>
-  `;
+document.getElementById('ticket-content').innerHTML = &lt;p&gt;&lt;strong&gt;Clienta:&lt;/strong&gt;${bookingData.name}</p>
+<p><strong>Servicios:</strong>  {bookingData.date} -  {bookingData.paymentType} (${bookingData.amountPaid.toFixed(0)})&lt;/p&gt; &lt;p style="color:var(--primary); font-weight:500; font-size:11px; margin-top:5px;"&gt;&lt;i class="fas fa-info-circle"&gt;&lt;/i&gt; Tu turno se está registrando. Por favor, envía la captura del pago por WhatsApp.&lt;/p&gt;;
 
-  if (isFirebaseActive && database) {
-    database.ref('turnos').push().set(bookingData);
-  } else {
-    const idLocal = 'local_' + Date.now();
-    todosLosTurnos[idLocal] = { ...bookingData };
-  }
+if (isFirebaseActive && database) {
+database.ref('turnos').push().set(bookingData);
+} else {
+const idLocal = 'local_' + Date.now();
+todosLosTurnos[idLocal] = { ...bookingData };
+}
 
-  showScreen(4);
+showScreen(4);
 
-  setTimeout(() => {
-    if (bookingData.paymentType === 'Seña') {
-      window.open("https://mpago.la/2yEdt32", "_blank");
-    } else {
-      window.open("https://link.mercadopago.com.ar/cosmetologiaohana", "_blank");
-    }
-  }, 1200);
+setTimeout(() => {
+if (bookingData.paymentType === 'Seña') {
+window.open("https://mpago.la/2yEdt32", "_blank");
+} else {
+window.open("https://link.mercadopago.com.ar/cosmetologiaohana", "_blank");
+}
+}, 1200);
 }
 
 function sendWhatsApp() {
-  const numeroDestino = "5493412243743";
-  const listaServicios = bookingData.services.join('\n- ');
+const numeroDestino = "5493412243743";
+const listaServicios = bookingData.services.join('\n- ');
 
-  const mensaje = `¡Hola! ✨ Saqué un turno y aquí te adjunto el comprobante de pago:\n\n🙋‍♀️ *Nombre:* ${bookingData.name}\n💇‍♀️ *Servicios seleccionados:* \n- ${listaServicios}\n\n📅 *Fecha:* ${bookingData.date}\n⏰ *Hora:* ${bookingData.hour} hs\n💳 *Modalidad:* ${bookingData.paymentType} ($${bookingData.amountPaid.toFixed(0)})\n\n*(Adjunto captura del pago abajo)* 👇`;
-  window.open(`https://api.whatsapp.com/send?phone=${numeroDestino}&text=${encodeURIComponent(mensaje)}`, '_blank');
+const mensaje = ¡Hola! ✨ Saqué un turno y aquí te adjunto el comprobante de pago:\n\n🙋‍♀️ *Nombre:*${bookingData.name}\n💇‍♀️ Servicios seleccionados: \n- latex
+{listaServicios}\n\n📅 *Fecha:* 
+
+{bookingData.date}\n⏰ Hora:latex
+{bookingData.hour} hs\n💳 *Modalidad:* 
+
+{bookingData.paymentType} (latex
+{bookingData.amountPaid.toFixed(0)})\n\n*(Adjunto captura del pago abajo)* 👇`; window.open(`https://api.whatsapp.com/send?phone=
+
+{numeroDestino}&text=${encodeURIComponent(mensaje)}, '_blank');
 }
 
 function renderAdminTurnos() {
-  const listaContainer = document.getElementById('admin-turnos-lista');
-  if (!listaContainer) return;
+const listaContainer = document.getElementById('admin-turnos-lista');
+if (!listaContainer) return;
 
-  const filtroFecha = document.getElementById('admin-filter-date').value;
-  listaContainer.innerHTML = '';
+const filtroFecha = document.getElementById('admin-filter-date').value;
+listaContainer.innerHTML = '';
 
-  const badge = document.getElementById('db-status-badge');
-  if(isFirebaseActive) {
-    badge.innerHTML = '<span class="db-badge" style="background:#d8f3dc; color:#1b4332;"><i class="fas fa-wifi"></i> Conectado a la Nube (Firebase)</span>';
-  } else {
-    badge.innerHTML = '<span class="db-badge" style="background:#fcd5ce; color:#641212;"><i class="fas fa-laptop"></i> Modo Prueba Local</span>';
-  }
+const badge = document.getElementById('db-status-badge');
+if(isFirebaseActive) {
+badge.innerHTML = '<span class="db-badge" style="background:#d8f3dc; color:#1b4332;"><i class="fas fa-wifi"></i> Conectado a la Nube (Firebase)</span>';
+} else {
+badge.innerHTML = '<span class="db-badge" style="background:#fcd5ce; color:#641212;"><i class="fas fa-laptop"></i> Modo Prueba Local</span>';
+}
 
-  let turnosArray = [];
-  for (let id in todosLosTurnos) {
-    turnosArray.push({ id: id, ...todosLosTurnos[id] });
-  }
+let turnosArray = [];
+for (let id in todosLosTurnos) {
+turnosArray.push({ id: id, ...todosLosTurnos[id] });
+}
 
-  turnosArray.sort((a, b) => (a.date + a.hour).localeCompare(b.date + b.hour));
+turnosArray.sort((a, b) => (a.date + a.hour).localeCompare(b.date + b.hour));
 
-  let contador = 0;
-  turnosArray.forEach(turno => {
-    if (filtroFecha && turno.date !== filtroFecha) return;
+let contador = 0;
+turnosArray.forEach(turno => {
+if (filtroFecha && turno.date !== filtroFecha) return;
 
-    contador++;
+contador++;
 
-    let strServicios = "";
-    if (turno.services && Array.isArray(turno.services)) {
-      strServicios = turno.services.join(', ');
-    } else {
-      strServicios = turno.service || 'S/D';
-    }
+let strServicios = "";
+if (turno.services && Array.isArray(turno.services)) {
+strServicios = turno.services.join(', ');
+} else {
+strServicios = turno.service || 'S/D';
+}
 
-    const precioBase = turno.totalPrice || turno.price || 0;
+const precioBase = turno.totalPrice || turno.price || 0;
 
-    const div = document.createElement('div');
-    div.className = 'admin-turn-card';
-    div.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"> 
-        <h4>${turno.name}</h4>
-        <span class="status-paid">${turno.paymentType || 'S/D'}: $${turno.amountPaid ? Number(turno.amountPaid).toFixed(0) : '0'}</span>
-      </div>
-      <p><strong>✨ Servicios:</strong> ${strServicios} (Valor base total: $${precioBase})</p>
-      <p><strong>📅 Cuándo:</strong> ${turno.date} a las <strong>${turno.hour} hs</strong></p>
-      <p><strong>📱 Tel:</strong> ${turno.phone}</p> 
-      ${turno.notes ? `<p><strong>📝 Nota:</strong> ${turno.notes}</p>` : ''} 
-      <button class="delete-btn" onclick="eliminarTurno('${turno.id}')"><i class="fas fa-trash"></i></button>
-    `;
-    listaContainer.appendChild(div);
-  });
+const div = document.createElement('div');
+div.className = 'admin-turn-card';
+div.innerHTML = &lt;div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;"&gt; &lt;h4&gt;${turno.name}</h4>
+<span class="status-paid"> {turno.amountPaid ? Number(turno.amountPaid).toFixed(0) : '0'}</span>
+</div>
+<p><strong>✨ Servicios:</strong>  {precioBase})</p>
+<p><strong>📅 Cuándo:</strong>  {turno.hour} hs</strong></p>
+<p><strong>📱 Tel:</strong>  {turno.notes ? <p&gt;&lt;strong&gt;📝 Nota:&lt;/strong&gt; ${turno.notes}</p>: ''} &lt;button class="delete-btn" onclick="eliminarTurno('${turno.id}')"><i class="fas fa-trash"></i></button>
+`;
+listaContainer.appendChild(div);
+});
 
-  if (contador === 0) {
-    listaContainer.innerHTML = '<p style="text-align:center; font-size:13px; color:#8d99ae; font-style:italic; margin-top:20px;">No hay turnos registrados.</p>';
-  }
+if (contador === 0) {
+listaContainer.innerHTML = '<p style="text-align:center; font-size:13px; color:#8d99ae; font-style:italic; margin-top:20px;">No hay turnos registrados.</p>';
+}
 }
 
 function eliminarTurno(id) {
-  if(confirm("¿Estás segura de eliminar este turno?")) {
-    if (isFirebaseActive && database) {
-      database.ref('turnos/' + id).remove();
-    } else {
-      delete todosLosTurnos[id];
-      renderAdminTurnos();
-    }
-  }
+if(confirm("¿Estás segura de eliminar este turno?")) {
+if (isFirebaseActive && database) {
+database.ref('turnos/' + id).remove();
+} else {
+delete todosLosTurnos[id];
+renderAdminTurnos();
+}
+}
 }
 
 function accessAdmin() {
-  const password = prompt("Introduce la clave de acceso de la estética:");
-  if (password === "1234") {
-    document.getElementById('progress-steps').style.display = 'none';
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('screen-admin').classList.add('active');
-    renderAdminTurnos();
-  } else if (password !== null) { alert("Clave incorrecta"); }
+const password = prompt("Introduce la clave de acceso de la estética:");
+if (password === "1234") {
+document.getElementById('progress-steps').style.display = 'none';
+document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+document.getElementById('screen-admin').classList.add('active');
+renderAdminTurnos();
+} else if (password !== null) { alert("Clave incorrecta"); }
 }
 
 function exitAdmin() {
-  document.getElementById('progress-steps').style.display = 'flex';
-  showScreen(1);
+document.getElementById('progress-steps').style.display = 'flex';
+showScreen(1);
 }
 
 function showScreen(num) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.step').forEach((s, idx) => {
-    if(idx < num) s.classList.add('active'); else s.classList.remove('active');
-  });
-  const targetScreen = document.getElementById(`screen-${num}`);
-  if(targetScreen) targetScreen.classList.add('active');
+document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+document.querySelectorAll('.step').forEach((s, idx) => {
+if(idx < num) s.classList.add('active'); else s.classList.remove('active');
+});
+const targetScreen = document.getElementById(screen-${num});
+if(targetScreen) targetScreen.classList.add('active');
 }
 
 function nextScreen(num) { showScreen(num); }
 function prevScreen(num) { showScreen(num); }
 
 function validateClientForm() {
-  const name = document.getElementById('client-name').value.trim();
-  const phone = document.getElementById('client-phone').value.trim();
-  const btn = document.getElementById('btn-confirm');
+const name = document.getElementById('client-name').value.trim();
+const phone = document.getElementById('client-phone').value.trim();
+const btn = document.getElementById('btn-confirm');
 
-  bookingData.name = name;
-  bookingData.phone = phone;
+bookingData.name = name;
+bookingData.phone = phone;
 
-  if (name.length >= 3 && phone.length >= 6 && bookingData.paymentType !== '') {
-    btn.disabled = false; btn.style.opacity = '1';
-  } else {
-    btn.disabled = true; btn.style.opacity = '0.5';
-  }
+if (name.length >= 3 && phone.length >= 6 && bookingData.paymentType !== '') {
+btn.disabled = false; btn.style.opacity = '1';
+} else {
+btn.disabled = true; btn.style.opacity = '0.5';
+}
 }
 
 function resetApp() {
-  bookingData = { services: [], prices: [], totalPrice: 0, date: '', hour: '', name: '', phone: '', notes: '', paymentType: '', amountPaid: 0 };
-  document.getElementById('client-name').value = ''; document.getElementById('client-phone').value = ''; document.getElementById('client-notes').value = ''; document.getElementById('booking-date').value = '';
-  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-  document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('hours-container').innerHTML = '<p style="color:#8d99ae; font-size:13px; font-style:italic; grid-column:span 3; text-align:center;">Selecciona una fecha primero.</p>';
-  document.getElementById('btn-goto-2').disabled = true; document.getElementById('btn-goto-2').style.opacity = '0.5';
-  document.getElementById('btn-goto-3').disabled = true; document.getElementById('btn-goto-3').style.opacity = '0.5';
-  document.getElementById('btn-confirm').disabled = true; document.getElementById('btn-confirm').style.opacity = '0.5';
-  showScreen(1);
+bookingData = { services: [], prices: [], totalPrice: 0, date: '', hour: '', name: '', phone: '', notes: '', paymentType: '', amountPaid: 0 };
+document.getElementById('client-name').value = ''; document.getElementById('client-phone').value = ''; document.getElementById('client-notes').value = ''; document.getElementById('booking-date').value = '';
+document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('selected'));
+document.getElementById('hours-container').innerHTML = '<p style="color:#8d99ae; font-size:13px; font-style:italic; grid-column:span 3; text-align:center;">Selecciona una fecha primero.</p>';
+document.getElementById('btn-goto-2').disabled = true; document.getElementById('btn-goto-2').style.opacity = '0.5';
+document.getElementById('btn-goto-3').disabled = true; document.getElementById('btn-goto-3').style.opacity = '0.5';
+document.getElementById('btn-confirm').disabled = true; document.getElementById('btn-confirm').style.opacity = '0.5';
+showScreen(1);
 }
 </script>
 </body>
