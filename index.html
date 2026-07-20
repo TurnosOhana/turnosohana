@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Turnos - CosmetologÃ­a Ohana</title>
-  <!-- Tailwind CSS para el diseÃ±o estÃ©tico -->
+  <title>Turnos - Cosmetología Ohana</title>
+  <!-- Tailwind CSS para el diseño estético -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Estilo para el scrollbar */
@@ -17,76 +17,76 @@
 
   <div id="app" class="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
     <div class="text-center mb-6">
-      <h1 class="text-3xl font-serif font-semibold text-gray-800">CosmetologÃ­a Ohana</h1>
-      <p class="text-sm text-gray-500 mt-1">AgendÃ¡ tu sesiÃ³n de forma online y rÃ¡pida</p>
+      <h1 class="text-3xl font-serif font-semibold text-gray-800">Cosmetología Ohana</h1>
+      <p class="text-sm text-gray-500 mt-1">Agendá tu sesión de forma online y rápida</p>
     </div>
 
     <form id="form-turno" class="space-y-5">
       <!-- 1. SELECCIONAR SERVICIO -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">1. SeleccionÃ¡ el servicio</label>
+        <label class="block text-sm font-medium text-gray-700 mb-2">1. Seleccioná el servicio</label>
         
         <!-- Buscador -->
         <div class="mb-3">
-          <input type="text" id="buscador-servicios" placeholder="ðŸ” Buscar servicio..." class="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 transition">
+          <input type="text" id="buscador-servicios" placeholder="🔍 Buscar servicio..." class="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 transition">
         </div>
 
         <!-- Contenedor con scroll -->
         <div class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar border border-gray-100 p-2 rounded-xl bg-gray-50/50">
           
-          <!-- MANOS Y UÃ‘AS -->
+          <!-- MANOS Y UÑAS -->
           <div class="categoria-servicios">
-            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Manos y UÃ±as</h3>
+            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Manos y Uñas</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Esmaltado semi permanente" required class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Esmaltado semi permanente" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Esmaltado semi permanente</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Capping + Esmaltado semi perm." class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Capping + Esmaltado semi perm." class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Capping + Esmaltado semi perm.</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Capping con poligel + Esmaltado" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Capping con poligel + Esmaltado" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Capping con poligel + Esmaltado</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Softgel + Esmaltado semi permanente" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Softgel + Esmaltado semi permanente" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Softgel + Esmaltado semi permanente</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Servis de Soft Gel" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Servis de Soft Gel" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Servis de Soft Gel</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Retirado de Esmaltado o Capping" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Retirado de Esmaltado o Capping" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Retirado de Esmaltado o Capping</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Retirado de Softgel" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Retirado de Softgel" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Retirado de Softgel</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Spa de manos sin Esmaltado" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Spa de manos sin Esmaltado" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Spa de manos sin Esmaltado</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Spa de manos + Esmaltado comÃºn" class="accent-pink-600">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Spa de manos + Esmaltado comÃºn</p></div>
+                <input type="checkbox" name="servicios" value="Spa de manos + Esmaltado común" class="accent-pink-600">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Spa de manos + Esmaltado común</p></div>
               </label>
             </div>
           </div>
 
-          <!-- PESTAÃ‘AS -->
+          <!-- PESTAÑAS -->
           <div class="pt-2 categoria-servicios">
-            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">PestaÃ±as</h3>
+            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Pestañas</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Lifting" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Lifting" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Lifting</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Lifting + tinte" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Lifting + tinte" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Lifting + tinte</p></div>
               </label>
             </div>
@@ -97,23 +97,23 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Cejas</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Laminado" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Laminado" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Laminado</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Tinte c/henna" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Tinte c/henna" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Tinte c/henna</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Perfilado" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Perfilado" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Perfilado</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Laminado + henna + perfilado" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Laminado + henna + perfilado" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Laminado + henna + perfilado</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Microblading" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Microblading" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Microblading</p></div>
               </label>
             </div>
@@ -124,47 +124,47 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Facial</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza facial" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limpieza facial" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza facial + Peeling" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Peeling" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Peeling</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza facial + Dermaplaning" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Dermaplaning" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Dermaplaning</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limp. Facial + Peeling + Dermaplaning" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limp. Facial + Peeling + Dermaplaning" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. Facial + Peeling + Dermaplaning</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza facial + Microneedling" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Microneedling" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. facial + Microneedling</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limp. Facial + Dermaplaning + Microneedling" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limp. Facial + Dermaplaning + Microneedling" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. Facial + Dermaplaning + Microneedling</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza facial + Bblips labial" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Bblips labial" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Bblips labial</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza facial + Radio frecuencia" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Radio frecuencia" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Radio frecuencia</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Maderoterapia + reflexologÃ­a facial" class="accent-pink-600">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Maderoterapia + reflexologÃ­a facial</p></div>
+                <input type="checkbox" name="servicios" value="Maderoterapia + reflexología facial" class="accent-pink-600">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Maderoterapia + reflexología facial</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Masajes relajantes/drenaje linfÃ¡tico manual" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Masajes relajantes/drenaje linfático manual" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masajes/Drenaje (facial cuello escote)</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Adicional Hidralips / BBlips" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Adicional Hidralips / BBlips" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Adicional Hidralips / BBlips</p></div>
               </label>
             </div>
@@ -175,43 +175,43 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Corporal</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza profunda en espalda" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limpieza profunda en espalda" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza profunda en espalda</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limp. prof. + Peeling en espalda" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Limp. prof. + Peeling en espalda" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. prof. + Peeling en espalda</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limpieza profunda en piernas y glÃºteos" class="accent-pink-600">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza profunda en piernas y glÃºteos</p></div>
+                <input type="checkbox" name="servicios" value="Limpieza profunda en piernas y glúteos" class="accent-pink-600">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza profunda en piernas y glúteos</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Limp. prof. + Peeling en piernas/glÃºteos" class="accent-pink-600">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. prof. + Peeling en piernas/glÃºteos</p></div>
+                <input type="checkbox" name="servicios" value="Limp. prof. + Peeling en piernas/glúteos" class="accent-pink-600">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. prof. + Peeling en piernas/glúteos</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Masaje relajantes" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Masaje relajantes" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje relajantes</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Masaje modelador + Drenaje linfÃ¡tico" class="accent-pink-600">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje modelador + Drenaje linfÃ¡tico</p></div>
+                <input type="checkbox" name="servicios" value="Masaje modelador + Drenaje linfático" class="accent-pink-600">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje modelador + Drenaje linfático</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Masaje modelador + Radio frec. + DLM" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Masaje modelador + Radio frec. + DLM" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje modelador + Radio frec. + DLM</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Drenaje linfÃ¡tico en piernas" class="accent-pink-600">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Drenaje linfÃ¡tico en piernas</p></div>
+                <input type="checkbox" name="servicios" value="Drenaje linfático en piernas" class="accent-pink-600">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Drenaje linfático en piernas</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Tratamiento piernas cansadas" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Tratamiento piernas cansadas" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Tratamiento piernas cansadas</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="Ondas rusas por zona" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="Ondas rusas por zona" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Ondas rusas por zona</p></div>
               </label>
             </div>
@@ -222,19 +222,19 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Packs de Sesiones</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="6 sesiones limp. fac. + radio frecuencia" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="6 sesiones limp. fac. + radio frecuencia" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">6 sesiones limp. fac. + radio frecuencia</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="6 sesiones limp. facial + Peeling" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="6 sesiones limp. facial + Peeling" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">6 sesiones limp. facial + Peeling</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="6 sesiones masaje reductores" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="6 sesiones masaje reductores" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">6 sesiones masaje reductores (radio frec./ondas)</p></div>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="radio" name="servicio" value="4 sesiones masaje reductores" class="accent-pink-600">
+                <input type="checkbox" name="servicios" value="4 sesiones masaje reductores" class="accent-pink-600">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">4 sesiones masaje reductores (radio frec./ondas)</p></div>
               </label>
             </div>
@@ -246,11 +246,11 @@
       <!-- 2. FECHA Y HORA -->
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">2. ElegÃ­ el dÃ­a</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">2. Elegí el día</label>
           <input type="date" id="fecha" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">3. ElegÃ­ el horario</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">3. Elegí el horario</label>
           <select id="hora" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
             <option value="09:00">09:00 hs</option>
             <option value="10:30">10:30 hs</option>
@@ -262,7 +262,7 @@
 
       <!-- 3. DATOS -->
       <div class="space-y-3 pt-2 border-t border-gray-100">
-        <label class="block text-sm font-medium text-gray-700">4. CompletÃ¡ tus datos</label>
+        <label class="block text-sm font-medium text-gray-700">4. Completá tus datos</label>
         <input type="text" id="nombre" placeholder="Tu nombre y apellido" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
         <input type="tel" id="whatsapp" placeholder="WhatsApp (ej: 3416123456)" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
         
@@ -273,8 +273,7 @@
     </form>
   </div>
 
-  <!-- FIREBASE SDK (VersiÃ³n Compat) -->
-  <!-- Usar la versiÃ³n Compat evita errores de CORS/MÃ³dulos al abrir el archivo directamente en la compu -->
+  <!-- FIREBASE SDK (Versión Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
@@ -311,7 +310,7 @@
     fechaInput.addEventListener('change', function() {
       const fechaSeleccionada = new Date(this.value + 'T12:00:00');
       if (fechaSeleccionada.getDay() === 0) {
-        alert('Los dÃ­as domingo el gabinete se encuentra cerrado. Por favor, seleccionÃ¡ otra fecha.');
+        alert('Los días domingo el gabinete se encuentra cerrado. Por favor, seleccioná otra fecha.');
         this.value = '';
       }
     });
@@ -340,26 +339,26 @@
     });
 
     // ==========================================
-    // LÃ“GICA DE ENVÃO DE FORMULARIO
+    // LÓGICA DE ENVÍO DE FORMULARIO
     // ==========================================
     document.getElementById('form-turno').addEventListener('submit', async (e) => {
-      e.preventDefault(); // Evita que la pÃ¡gina se recargue
+      e.preventDefault(); // Evita que la página se recargue
 
-      // Validar manualmente que haya un servicio seleccionado
-      const servicioSeleccionado = document.querySelector('input[name="servicio"]:checked');
-      if (!servicioSeleccionado) {
-        alert("Â¡AtenciÃ³n! Por favor, seleccionÃ¡ un servicio de la lista antes de continuar.");
+      // Validar que haya al menos un servicio seleccionado
+      const serviciosSeleccionados = document.querySelectorAll('input[name="servicios"]:checked');
+      if (serviciosSeleccionados.length === 0) {
+        alert("¡Atención! Por favor, seleccioná al menos un servicio de la lista antes de continuar.");
         return;
       }
 
-      // Obtener los datos
-      const servicio = servicioSeleccionado.value;
+      // Obtener todos los servicios seleccionados unidos por comas
+      const servicio = Array.from(serviciosSeleccionados).map(el => el.value).join(', ');
       const fecha = document.getElementById('fecha').value;
       const hora = document.getElementById('hora').value;
       const nombre = document.getElementById('nombre').value;
       const whatsapp = document.getElementById('whatsapp').value;
 
-      // Cambiar el botÃ³n para indicar que estÃ¡ procesando
+      // Cambiar el botón para indicar que está procesando
       const btnSubmit = e.target.querySelector('button[type="submit"]');
       const textoBotonOriginal = btnSubmit.innerHTML;
       btnSubmit.innerHTML = "Procesando...";
@@ -380,20 +379,18 @@
         const fechaFormateada = fecha.split('-').reverse().join('/');
         
         // Crear mensaje para WhatsApp
-        const textoMensaje = `Â¡Hola! âœ¨ SolicitÃ© un turno desde la web:\n\nðŸ‘¤ *Nombre:* ${nombre}\nðŸ’†â€â™€ï¸ *Servicio:* ${servicio}\nðŸ“… *Fecha:* ${fechaFormateada}\nâ° *Hora:* ${hora} hs\nðŸ“± *WhatsApp:* ${whatsapp}\n\nQuedo a la espera de la confirmaciÃ³n. Â¡Muchas gracias!`;
+        const textoMensaje = `¡Hola! ✨ Solicité un turno desde la web:\n\n👤 *Nombre:* ${nombre}\n💆‍♀️ *Servicios:* ${servicio}\n📅 *Fecha:* ${fechaFormateada}\n⏰ *Hora:* ${hora} hs\n📱 *WhatsApp:* ${whatsapp}\n\nQuedo a la espera de la confirmación. ¡Muchas gracias!`;
         
-        // El formato del texto debe limpiar los \n para la URL
-        const textoFinal = textoMensaje.replace(/\\n/g, '\n');
-        const urlWhatsApp = `https://wa.me/5493412243743?text=${encodeURIComponent(textoMensaje.replace(/\n/g, '\n'))}`;
+        const urlWhatsApp = `https://wa.me/5493412243743?text=` + encodeURIComponent(textoMensaje);
 
-        // Mostrar pantalla de Ã©xito
+        // Mostrar pantalla de éxito
         document.getElementById('app').innerHTML = `
           <div class="text-center py-8">
-            <div class="text-5xl mb-4">âœ¨</div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">Â¡Turno Guardado!</h2>
-            <p class="text-gray-600 mb-6">Hola ${nombre}, registramos tu solicitud. Para finalizar, tocÃ¡ el botÃ³n de abajo para enviarme los detalles por WhatsApp y congelar tu horario.</p>
+            <div class="text-5xl mb-4">✨</div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Turno Guardado!</h2>
+            <p class="text-gray-600 mb-6">Hola ${nombre}, registramos tu solicitud. Para finalizar, tocá el botón de abajo para enviarme los detalles por WhatsApp y congelar tu horario.</p>
             <a href="${urlWhatsApp}" target="_blank" class="inline-block w-full bg-emerald-600 text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-700 transition text-center shadow-lg mb-4">
-              ðŸ’¬ Enviar por WhatsApp
+              💬 Enviar por WhatsApp
             </a>
             <button onclick="window.location.reload()" class="w-full text-sm text-gray-400 hover:text-gray-600 transition underline">Pedir otro turno</button>
           </div>
@@ -403,7 +400,7 @@
 
       } catch (error) {
         console.error(error);
-        alert("Hubo un error al guardar el turno. \n\nSi reciÃ©n creaste la base de datos de Firebase, recordÃ¡ ir a la pestaÃ±a 'Reglas' (Rules) y asegurarte de que permita lectura/escritura provisoriamente.");
+        alert("Hubo un error al guardar el turno. \n\nSi recién creaste la base de datos de Firebase, recordá ir a la pestaña 'Rules' y asegurarte de que permita lectura/escritura provisoriamente.");
         btnSubmit.innerHTML = textoBotonOriginal;
         btnSubmit.disabled = false;
       }
