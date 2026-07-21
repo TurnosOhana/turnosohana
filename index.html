@@ -288,12 +288,6 @@
           </div>
           
         </div>
-
-        <!-- CARTEL DE MONTO TOTAL -->
-        <div class="mt-3 p-3 bg-pink-50 border border-pink-200 rounded-xl flex justify-between items-center">
-          <span class="text-sm font-medium text-gray-700">Total acumulado:</span>
-          <span id="monto-total" class="text-lg font-bold text-pink-600">$0</span>
-        </div>
       </div>
 
       <!-- 2. FECHA Y HORA -->
@@ -310,12 +304,64 @@
         </div>
       </div>
 
-      <!-- 3. DATOS -->
+      <!-- 3. DATOS DE CONTACTO -->
       <div class="space-y-3 pt-2 border-t border-gray-100">
         <label class="block text-sm font-medium text-gray-700">4. Completá tus datos</label>
         <input type="text" id="nombre" placeholder="Tu nombre y apellido" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
         <input type="tel" id="whatsapp" placeholder="WhatsApp (ej: 3416123456)" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
-        
+      </div>
+
+      <!-- 4. OBSERVACIONES -->
+      <div class="space-y-3 pt-2 border-t border-gray-100">
+        <label class="block text-sm font-medium text-gray-700">5. Observaciones o aclaraciones (opcional)</label>
+        <textarea id="notas" rows="2" placeholder="Ej: Tengo retiro de service anterior, piel sensible, alergias, etc..." class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 resize-none"></textarea>
+      </div>
+
+      <!-- 5. PASO 6: OPCIÓN DE PAGO -->
+      <div class="space-y-3 pt-2 border-t border-gray-100">
+        <label class="block text-sm font-medium text-gray-700">6. Elegí tu opción de pago</label>
+        <div class="grid grid-cols-1 gap-2.5">
+          <label class="flex items-center justify-between p-3.5 rounded-xl border-2 border-pink-200 bg-pink-50/30 cursor-pointer hover:border-pink-400 transition">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="pago" value="completo" checked class="accent-pink-600 focus:ring-pink-500 opcion-pago">
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Pago Completo <span class="bg-pink-100 text-pink-700 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ml-1">10% OFF</span></p>
+                <p class="text-xs text-gray-500">Aboná el total ahora con descuento especial</p>
+              </div>
+            </div>
+          </label>
+
+          <label class="flex items-center justify-between p-3.5 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-pink-300 transition">
+            <div class="flex items-center space-x-3">
+              <input type="radio" name="pago" value="sena" class="accent-pink-600 focus:ring-pink-500 opcion-pago">
+              <div>
+                <p class="font-semibold text-gray-800 text-sm">Seña del turno (50%)</p>
+                <p class="text-xs text-gray-500">Asegurá tu lugar y abonás el resto en gabinete</p>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <!-- CARTEL DESGLOSE DE MONTO DE PAGO -->
+        <div id="resumen-pago-box" class="p-3.5 bg-gray-50 border border-gray-200 rounded-xl space-y-1.5 text-xs text-gray-700 mt-3">
+          <div class="flex justify-between">
+            <span>Subtotal servicios:</span>
+            <span id="resumen-subtotal" class="font-semibold">$0</span>
+          </div>
+          <div id="fila-descuento" class="flex justify-between text-emerald-600 font-semibold">
+            <span>Descuento (10% OFF):</span>
+            <span id="resumen-descuento">-$0</span>
+          </div>
+          <div id="fila-restante" class="flex justify-between text-amber-700 font-medium hidden">
+            <span>Restante a pagar en gabinete:</span>
+            <span id="resumen-restante">$0</span>
+          </div>
+          <div class="flex justify-between items-center pt-2 border-t border-gray-200 text-sm font-bold text-pink-600">
+            <span>Monto a abonar ahora:</span>
+            <span id="resumen-total-ahora" class="text-base font-extrabold">$0</span>
+          </div>
+        </div>
+
         <button type="submit" class="w-full bg-pink-600 text-white py-3.5 rounded-xl font-semibold hover:bg-pink-700 transition shadow-md mt-4">
           Confirmar Reserva
         </button>
@@ -343,14 +389,28 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // CLAVE DE ACCESO DE ADMINISTRADORA (Podés cambiarla aquí)
+    // CLAVE DE ACCESO DE ADMINISTRADORA
     const CLAVE_ADMIN = "1234";
 
     const fechaInput = document.getElementById('fecha');
     const horaSelect = document.getElementById('hora');
     const buscadorInput = document.getElementById('buscador-servicios');
     const checkboxesServicios = document.querySelectorAll('.servicio-checkbox');
-    const montoTotalSpan = document.getElementById('monto-total');
+    const opcionesPago = document.querySelectorAll('.opcion-pago');
+
+    // Elementos del desglose de pago
+    const resumenSubtotal = document.getElementById('resumen-subtotal');
+    const resumenDescuento = document.getElementById('resumen-descuento');
+    const resumenRestante = document.getElementById('resumen-restante');
+    const resumenTotalAhora = document.getElementById('resumen-total-ahora');
+    const filaDescuento = document.getElementById('fila-descuento');
+    const filaRestante = document.getElementById('fila-restante');
+
+    // Variables globales de importes
+    let subtotalCalculado = 0;
+    let montoAhoraCalculado = 0;
+    let montoRestanteCalculado = 0;
+    let descuentoCalculado = 0;
 
     // 1. Bloquear fechas pasadas
     const hoy = new Date();
@@ -438,18 +498,42 @@
       });
     });
 
-    // 4. Calcular suma en tiempo real
-    checkboxesServicios.forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        let total = 0;
-        checkboxesServicios.forEach(cb => {
-          if (cb.checked) {
-            total += parseFloat(cb.getAttribute('data-precio') || 0);
-          }
-        });
-        montoTotalSpan.textContent = `$${total}`;
+    // 4. Función centralizada para recalcular montos de pago
+    function calcularTotales() {
+      subtotalCalculado = 0;
+      checkboxesServicios.forEach(cb => {
+        if (cb.checked) {
+          subtotalCalculado += parseFloat(cb.getAttribute('data-precio') || 0);
+        }
       });
-    });
+
+      const modoPago = document.querySelector('input[name="pago"]:checked').value;
+
+      if (modoPago === 'completo') {
+        descuentoCalculado = subtotalCalculado * 0.10;
+        montoAhoraCalculado = subtotalCalculado - descuentoCalculado;
+        montoRestanteCalculado = 0;
+
+        filaDescuento.classList.remove('hidden');
+        filaRestante.classList.add('hidden');
+      } else {
+        descuentoCalculado = 0;
+        montoAhoraCalculado = subtotalCalculado * 0.50; // Seña del 50%
+        montoRestanteCalculado = subtotalCalculado - montoAhoraCalculado;
+
+        filaDescuento.classList.add('hidden');
+        filaRestante.classList.remove('hidden');
+      }
+
+      resumenSubtotal.textContent = `$${subtotalCalculado}`;
+      resumenDescuento.textContent = `-$${descuentoCalculado}`;
+      resumenRestante.textContent = `$${montoRestanteCalculado}`;
+      resumenTotalAhora.textContent = `$${montoAhoraCalculado}`;
+    }
+
+    // Listeners para recálculo dinámico
+    checkboxesServicios.forEach(cb => cb.addEventListener('change', calcularTotales));
+    opcionesPago.forEach(radio => radio.addEventListener('change', calcularTotales));
 
     // 5. Enviar formulario de reserva
     document.getElementById('form-turno').addEventListener('submit', async (e) => {
@@ -461,18 +545,17 @@
         return;
       }
 
-      let totalPagar = 0;
       const servicioArray = [];
-      serviciosSeleccionados.forEach(el => {
-        servicioArray.push(el.value);
-        totalPagar += parseFloat(el.getAttribute('data-precio') || 0);
-      });
+      serviciosSeleccionados.forEach(el => servicioArray.push(el.value));
       const servicio = servicioArray.join(', ');
 
       const fecha = document.getElementById('fecha').value;
       const hora = document.getElementById('hora').value;
       const nombre = document.getElementById('nombre').value;
       const whatsapp = document.getElementById('whatsapp').value;
+      const notas = document.getElementById('notas').value.trim();
+      const modoPago = document.querySelector('input[name="pago"]:checked').value;
+      const textoFormaPago = modoPago === 'completo' ? 'Pago Completo (10% OFF)' : 'Seña del turno (50%)';
 
       if (!hora) {
         alert("Por favor seleccioná un horario válido.");
@@ -503,24 +586,32 @@
         // Guardar turno en Firebase
         await db.ref('turnos').push({
           servicio,
-          total: totalPagar,
+          subtotal: subtotalCalculado,
+          montoAbonarAhora: montoAhoraCalculado,
+          montoRestante: montoRestanteCalculado,
+          descuento: descuentoCalculado,
+          formaPago: textoFormaPago,
           fecha,
           hora,
           nombre,
           whatsapp,
+          notas: notas || 'Sin observaciones',
           estado: "pendiente",
           creadoEl: new Date().toISOString()
         });
 
         const fechaFormateada = fecha.split('-').reverse().join('/');
-        const textoMensaje = `¡Hola!  Solicité un turno desde la web:\n\n *Nombre:* ${nombre}\n *Servicios:* ${servicio}\n *Total:* $${totalPagar}\n *Fecha:* ${fechaFormateada}\n *Hora:* ${hora} hs\n *WhatsApp:* ${whatsapp}\n\nQuedo a la espera de la confirmación. ¡Muchas gracias!`;
+        const textoNotas = notas ? `\n *Notas:* ${notas}` : '';
+        const detalleRestante = montoRestanteCalculado > 0 ? `\n *Saldo restante en gabinete:* $${montoRestanteCalculado}` : '';
+
+        const textoMensaje = `¡Hola!  Solicité un turno desde la web:\n\n *Nombre:* ${nombre}\n *Servicios:* ${servicio}\n *Fecha:* ${fechaFormateada}\n *Hora:* ${hora} hs\n *Opción de Pago:* ${textoFormaPago}\n *Monto a abonar ahora:* $${montoAhoraCalculado}${detalleRestante}\n *WhatsApp:* ${whatsapp}${textoNotas}\n\nQuedo a la espera de los datos de transferencia para confirmar mi turno. ¡Muchas gracias!`;
         const urlWhatsApp = `https://wa.me/5493412243743?text=` + encodeURIComponent(textoMensaje);
 
         document.getElementById('app').innerHTML = `
           <div class="text-center py-8">
             <div class="text-5xl mb-4"></div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Turno Guardado!</h2>
-            <p class="text-gray-600 mb-6">Hola ${nombre}, registramos tu solicitud por un total de <strong>$${totalPagar}</strong>. Para finalizar, tocá el botón de abajo para enviarme los detalles por WhatsApp y congelar tu horario.</p>
+            <p class="text-gray-600 mb-6">Hola ${nombre}, tu solicitud quedó registrada. Para finalizar, abonás ahora <strong>$${montoAhoraCalculado}</strong> (${textoFormaPago}). Tocá el botón para enviarme los detalles por WhatsApp.</p>
             <a href="${urlWhatsApp}" target="_blank" class="inline-block w-full bg-emerald-600 text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-700 transition text-center shadow-lg mb-4">
                Enviar por WhatsApp
             </a>
@@ -600,8 +691,14 @@
               </button>
             </div>
             <p class="text-gray-600"><strong>Servicios:</strong> ${t.servicio}</p>
+            <p class="text-gray-600"><strong>Pago:</strong> ${t.formaPago || 'Sin especificar'}</p>
+            <div class="bg-white p-2 rounded-lg border border-gray-100 text-[11px] space-y-1">
+              <p>Abonado/Seña: <strong class="text-emerald-600">$${t.montoAbonarAhora || t.total || 0}</strong></p>
+              ${t.montoRestante > 0 ? `<p>Resta pagar en gabinete: <strong class="text-amber-600">$${t.montoRestante}</strong></p>` : ''}
+            </div>
+            ${t.notas && t.notas !== 'Sin observaciones' ? `<p class="text-gray-600 bg-amber-50 border border-amber-200 p-2 rounded-lg"><strong>Notas:</strong> ${t.notas}</p>` : ''}
             <div class="flex justify-between items-center pt-1 border-t border-gray-200/60">
-              <span class="font-bold text-gray-700">Total: $${t.total}</span>
+              <span class="font-bold text-gray-700">Subtotal: $${t.subtotal || t.total || 0}</span>
               <a href="https://wa.me/${t.whatsapp}?text=${encodeURIComponent(`¡Hola ${t.nombre}!  Te confirmo tu turno para el ${fechaForm} a las ${t.hora} hs en Cosmetología Ohana. ¡Te espero!`)}" target="_blank" class="bg-emerald-600 text-white px-2.5 py-1 rounded-lg text-xs font-semibold hover:bg-emerald-700 transition">
                  WhatsApp
               </a>
