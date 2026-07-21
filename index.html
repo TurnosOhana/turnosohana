@@ -604,12 +604,12 @@
         const textoNotas = notas ? `\n *Notas:* ${notas}` : '';
         const detalleRestante = montoRestanteCalculado > 0 ? `\n *Saldo restante en gabinete:* $${montoRestanteCalculado}` : '';
 
-        const textoMensaje = `¡Hola!  Solicité un turno desde la web:\n\n *Nombre:* ${nombre}\n *Servicios:* ${servicio}\n *Fecha:* ${fechaFormateada}\n *Hora:* ${hora} hs\n *Opción de Pago:* ${textoFormaPago}\n *Monto a abonar ahora:* $${montoAhoraCalculado}${detalleRestante}\n *WhatsApp:* ${whatsapp}${textoNotas}\n\nQuedo a la espera de los datos de transferencia para confirmar mi turno. ¡Muchas gracias!`;
+        const textoMensaje = `¡Hola!  Solicité un turno desde la web:\n\n *Nombre:* ${nombre}\n *Servicios:* ${servicio}\n *Fecha:* ${fechaFormateada}\n *Hora:* ${hora} hs\n *Opción de Pago:* ${textoFormaPago}\n *Monto a abonar ahora:* $${montoAhoraCalculado}${detalleRestante}\n *WhatsApp:* ${whatsapp}${textoNotas}\n\nQuedo a la espera de los datos de transferencia para confirmar mi turno. ¡Muchas gracias!`;
         const urlWhatsApp = `https://wa.me/5493412243743?text=` + encodeURIComponent(textoMensaje);
 
         document.getElementById('app').innerHTML = `
           <div class="text-center py-8">
-            <div class="text-5xl mb-4"></div>
+            <div class="text-5xl mb-4 text-emerald-500"></div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Turno Guardado!</h2>
             <p class="text-gray-600 mb-6">Hola ${nombre}, tu solicitud quedó registrada. Para finalizar, abonás ahora <strong>$${montoAhoraCalculado}</strong> (${textoFormaPago}). Tocá el botón para enviarme los detalles por WhatsApp.</p>
             <a href="${urlWhatsApp}" target="_blank" class="inline-block w-full bg-emerald-600 text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-700 transition text-center shadow-lg mb-4">
@@ -648,7 +648,7 @@
           <div class="flex justify-between items-center border-b pb-3">
             <h2 class="text-xl font-bold text-gray-800">Panel de Turnos</h2>
             <button onclick="window.location.reload()" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg transition font-medium">
-               Volver
+               Volver
             </button>
           </div>
           <div id="lista-turnos" class="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar pr-1">
