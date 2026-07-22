@@ -317,7 +317,7 @@
         <textarea id="notas" rows="2" placeholder="Ej: Tengo retiro de service anterior, piel sensible, alergias, etc..." class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 resize-none"></textarea>
       </div>
 
-      <!-- 5. PASO 6: OPCIÓN DE PAGO AL ALIAS CINTIA.DERAMO.MP -->
+      <!-- 5. PASO 6: OPCIÓN DE PAGO -->
       <div class="space-y-3 pt-2 border-t border-gray-100">
         <label class="block text-sm font-medium text-gray-700">6. Opción de pago (Alias: <strong class="text-pink-600">CINTIA.DERAMO.MP</strong>)</label>
         
@@ -363,17 +363,26 @@
           </div>
           <p class="text-[11px] text-center text-gray-500 pt-1">Alias para transferencia: <strong class="text-pink-600">CINTIA.DERAMO.MP</strong></p>
         </div>
-
-        <button type="submit" class="w-full bg-pink-600 text-white py-3.5 rounded-xl font-semibold hover:bg-pink-700 transition shadow-md mt-4">
-          Confirmar Reserva y Enviar Comprobante
-        </button>
       </div>
+
+      <!-- 6. PASO 7: COMPROBANTE -->
+      <div class="space-y-3 pt-4 border-t border-gray-100">
+        <label class="block text-sm font-medium text-gray-700">7. Adjuntá tu comprobante de pago</label>
+        <input type="file" id="comprobante" accept="image/*,.pdf" required class="w-full p-2 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
+        <p class="text-[11px] text-gray-500">Formatos permitidos: JPG, PNG o PDF.</p>
+      </div>
+
+      <button type="submit" class="w-full bg-pink-600 text-white py-3.5 rounded-xl font-semibold hover:bg-pink-700 transition shadow-md mt-4">
+        Confirmar Reserva y Enviar Comprobante
+      </button>
     </form>
   </div>
 
   <!-- FIREBASE SDK (Versión Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+  <!-- SCRIPT PARA SUBIR IMÁGENES -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
   <script>
     // Configuración e Inicialización de Firebase
@@ -498,7 +507,7 @@
       });
     });
 
-    // 4. Función centralizada para recalcular montos de pago (Seña al 10%)
+    // 4. Función centralizada para recalcular montos de pago
     function calcularTotales() {
       subtotalCalculado = 0;
       checkboxesServicios.forEach(cb => {
@@ -518,7 +527,7 @@
         filaRestante.classList.add('hidden');
       } else {
         descuentoCalculado = 0;
-        montoAhoraCalculado = Math.round(subtotalCalculado * 0.10); // Seña del 10%
+        montoAhoraCalculado = Math.round(subtotalCalculado * 0.10); 
         montoRestanteCalculado = subtotalCalculado - montoAhoraCalculado;
 
         filaDescuento.classList.add('hidden');
@@ -544,6 +553,12 @@
         return;
       }
 
+      const comprobanteFile = document.getElementById('comprobante').files[0];
+      if (!comprobanteFile) {
+        alert("¡Atención! Por favor, adjuntá el comprobante de pago antes de continuar.");
+        return;
+      }
+
       const servicioArray = [];
       serviciosSeleccionados.forEach(el => servicioArray.push(el.value));
       const servicio = servicioArray.join(', ');
@@ -562,10 +577,11 @@
       }
 
       const btnSubmit = e.target.querySelector('button[type="submit"]');
-      btnSubmit.innerHTML = "Verificando disponibilidad...";
+      btnSubmit.innerHTML = "Subiendo comprobante y reservando... ⏳";
       btnSubmit.disabled = true;
 
       try {
+        // Verificar disponibilidad de horario nuevamente
         const checkSnapshot = await db.ref('turnos').orderByChild('fecha').equalTo(fecha).once('value');
         let yaReservado = false;
 
@@ -581,6 +597,24 @@
           return;
         }
 
+        // Subir comprobante a Storage
+        let urlComprobante = "";
+        try {
+          const storageRef = firebase.storage().ref();
+          const nombreArchivo = `comprobantes/${Date.now()}_${comprobanteFile.name}`;
+          const fileRef = storageRef.child(nombreArchivo);
+          
+          await fileRef.put(comprobanteFile);
+          urlComprobante = await fileRef.getDownloadURL();
+        } catch (error) {
+          console.error("Error subiendo el archivo:", error);
+          alert("Hubo un problema al subir la imagen. Por favor, intentá de nuevo.");
+          btnSubmit.innerHTML = "Confirmar Reserva y Enviar Comprobante";
+          btnSubmit.disabled = false;
+          return;
+        }
+
+        // Guardar turno en Realtime Database
         await db.ref('turnos').push({
           servicio,
           subtotal: subtotalCalculado,
@@ -594,22 +628,26 @@
           whatsapp,
           notas: notas || 'Sin observaciones',
           estado: "pendiente",
+          comprobanteURL: urlComprobante, // Acá se guarda el link de la imagen
           creadoEl: new Date().toISOString()
         });
 
+        // Formatear mensaje de WhatsApp
         const fechaFormateada = fecha.split('-').reverse().join('/');
         const textoNotas = notas ? `\n📝 *Notas:* ${notas}` : '';
         const detalleRestante = montoRestanteCalculado > 0 ? `\n💰 *Saldo restante en gabinete:* $${montoRestanteCalculado.toLocaleString('es-AR')}` : '';
 
-        const textoMensaje = `¡Hola! 👋 Solicité un turno en la web y realicé la transferencia al alias *CINTIA.DERAMO.MP*:\n\n👤 *Nombre:* ${nombre}\n✨ *Servicios:* ${servicio}\n📅 *Fecha:* ${fechaFormateada}\n⏰ *Hora:* ${hora} hs\n💳 *Opción:* ${textoFormaPago}\n💵 *Monto transferido:* $${montoAhoraCalculado.toLocaleString('es-AR')}${detalleRestante}\n📱 *WhatsApp:* ${whatsapp}${textoNotas}\n\n📎 *Adjunto el comprobante de pago.* ¡Muchas gracias!`;
+        const textoMensaje = `¡Hola! 👋 Solicité un turno en la web y realicé la transferencia al alias *CINTIA.DERAMO.MP*:\n\n👤 *Nombre:* ${nombre}\n✨ *Servicios:* ${servicio}\n📅 *Fecha:* ${fechaFormateada}\n⏰ *Hora:* ${hora} hs\n💳 *Opción:* ${textoFormaPago}\n💵 *Monto transferido:* $${montoAhoraCalculado.toLocaleString('es-AR')}${detalleRestante}\n📱 *WhatsApp:* ${whatsapp}${textoNotas}\n\n📎 *Ver comprobante adjunto:* ${urlComprobante}\n\n¡Muchas gracias!`;
+        
         const urlWhatsApp = `https://wa.me/5493412243743?text=` + encodeURIComponent(textoMensaje);
 
+        // Mostrar cartel de éxito
         document.getElementById('app').innerHTML = `
           <div class="text-center py-8">
             <div class="text-5xl mb-4 text-emerald-500">✅</div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Turno Registrado!</h2>
-            <p class="text-gray-600 mb-4">Hola ${nombre}, transfirilidad de <strong>$${montoAhoraCalculado.toLocaleString('es-AR')}</strong> (${textoFormaPago}) al alias <strong class="text-pink-600">CINTIA.DERAMO.MP</strong>.</p>
-            <p class="text-xs text-gray-500 mb-6">Tocá el botón para enviar el mensaje y compartir tu comprobante por WhatsApp.</p>
+            <p class="text-gray-600 mb-4">Hola ${nombre}, registramos tu transferencia de <strong>$${montoAhoraCalculado.toLocaleString('es-AR')}</strong> (${textoFormaPago}) al alias <strong class="text-pink-600">CINTIA.DERAMO.MP</strong>.</p>
+            <p class="text-xs text-gray-500 mb-6">Tocá el botón para enviar el mensaje y notificar tu comprobante por WhatsApp.</p>
             <a href="${urlWhatsApp}" target="_blank" class="inline-block w-full bg-emerald-600 text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-700 transition text-center shadow-lg mb-4">
               📲 Enviar Comprobante por WhatsApp
             </a>
@@ -696,11 +734,12 @@
             <div class="bg-white p-2 rounded-lg border border-gray-100 text-[11px] space-y-1">
               <p>Transferido (Alias CINTIA.DERAMO.MP): <strong class="text-emerald-600">$${montoAhoraVal.toLocaleString('es-AR')}</strong></p>
               ${montoRestanteVal > 0 ? `<p>Resta pagar en gabinete: <strong class="text-amber-600">$${montoRestanteVal.toLocaleString('es-AR')}</strong></p>` : ''}
+              ${t.comprobanteURL ? `<a href="${t.comprobanteURL}" target="_blank" class="text-pink-600 hover:text-pink-800 underline mt-1.5 inline-block font-semibold">📄 Ver foto del comprobante</a>` : ''}
             </div>
             ${t.notas && t.notas !== 'Sin observaciones' ? `<p class="text-gray-600 bg-amber-50 border border-amber-200 p-2 rounded-lg"><strong>Notas:</strong> ${t.notas}</p>` : ''}
-            <div class="flex justify-between items-center pt-1 border-t border-gray-200/60">
+            <div class="flex justify-between items-center pt-1 border-t border-gray-200/60 mt-1">
               <span class="font-bold text-gray-700">Subtotal: $${subTotalVal.toLocaleString('es-AR')}</span>
-              <a href="https://wa.me/${t.whatsapp}?text=${encodeURIComponent(`¡Hola ${t.nombre}! ✨ Te confirmo que recibí tu comprobante para el turno del ${fechaForm} a las ${t.hora} hs en Cosmetología Ohana. ¡Te espero!`)}" target="_blank" class="bg-emerald-600 text-white px-2.5 py-1 rounded-lg text-xs font-semibold hover:bg-emerald-700 transition">
+              <a href="https://wa.me/549${t.whatsapp}?text=${encodeURIComponent(`¡Hola ${t.nombre}! ✨ Te confirmo que recibí tu comprobante para el turno del ${fechaForm} a las ${t.hora} hs en Cosmetología Ohana. ¡Te espero!`)}" target="_blank" class="bg-emerald-600 text-white px-2.5 py-1 rounded-lg text-xs font-semibold hover:bg-emerald-700 transition">
                 💬 WhatsApp
               </a>
             </div>
