@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Turnos - Cosmetolog√≠a Ohana</title>
-  <!-- Tailwind CSS para el dise√±o est√©tico -->
+  <title>Turnos - CosmetologÌa Ohana</title>
+  <!-- Tailwind CSS para el diseÒo estÈtico -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Estilo para el scrollbar */
@@ -17,94 +17,94 @@
 
   <div id="app" class="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-100 p-6 relative">
     
-    <!-- BOT√ìN DE ACCESO ADMINISTRADORA -->
+    <!-- BOT”N DE ACCESO ADMINISTRADORA -->
     <button id="btn-admin" title="Acceso Administradora" class="absolute top-5 right-5 text-gray-400 hover:text-pink-600 transition p-1 text-xl">
-      ‚öôÔ∏è
+      
     </button>
 
     <div class="text-center mb-6">
-      <h1 class="text-3xl font-serif font-semibold text-gray-800">Cosmetolog√≠a Ohana</h1>
-      <p class="text-sm text-gray-500 mt-1">Agend√° tu sesi√≥n de forma online y r√°pida</p>
+      <h1 class="text-3xl font-serif font-semibold text-gray-800">CosmetologÌa Ohana</h1>
+      <p class="text-sm text-gray-500 mt-1">Agend· tu sesiÛn de forma online y r·pida</p>
     </div>
 
     <form id="form-turno" class="space-y-5">
       <!-- 1. SELECCIONAR SERVICIO -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">1. Seleccion√° los servicios</label>
+        <label class="block text-sm font-medium text-gray-700 mb-2">1. Seleccion· los servicios</label>
         
         <!-- Buscador -->
         <div class="mb-3">
-          <input type="text" id="buscador-servicios" placeholder="üîç Buscar servicio..." class="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 transition">
+          <input type="text" id="buscador-servicios" placeholder=" Buscar servicio..." class="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 transition">
         </div>
 
         <!-- Contenedor con scroll -->
         <div class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar border border-gray-100 p-2 rounded-xl bg-gray-50/50">
           
-          <!-- MANOS Y U√ëAS -->
+          <!-- MANOS Y U—AS -->
           <div class="categoria-servicios">
-            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Manos y U√±as</h3>
+            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Manos y UÒas</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Esmaltado semi permanente" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Esmaltado semi permanente" data-precio="19999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Esmaltado semi permanente</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$19.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Capping + Esmaltado semi perm." data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Capping + Esmaltado semi perm." data-precio="21999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Capping + Esmaltado semi perm.</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$21.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Capping con poligel + Esmaltado" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Capping con poligel + Esmaltado" data-precio="24999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Capping con poligel + Esmaltado</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$24.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Softgel + Esmaltado semi permanente" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Softgel + Esmaltado semi permanente" data-precio="24999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Softgel + Esmaltado semi permanente</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$24.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Servis de Soft Gel" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Servis de Soft Gel" data-precio="21999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Servis de Soft Gel</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$21.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Retirado de Esmaltado o Capping" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Retirado de Esmaltado o Capping" data-precio="9999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Retirado de Esmaltado o Capping</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$9.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Retirado de Softgel" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Retirado de Softgel" data-precio="9999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Retirado de Softgel</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$9.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Spa de manos sin Esmaltado" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Spa de manos sin Esmaltado" data-precio="11999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Spa de manos sin Esmaltado</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$11.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Spa de manos + Esmaltado com√∫n" data-precio="1" class="accent-pink-600 servicio-checkbox">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Spa de manos + Esmaltado com√∫n</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <input type="checkbox" name="servicios" value="Spa de manos + Esmaltado com˙n" data-precio="14999" class="accent-pink-600 servicio-checkbox">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Spa de manos + Esmaltado com˙n</p></div>
+                <span class="text-xs font-semibold text-pink-600">$14.999</span>
               </label>
             </div>
           </div>
 
-          <!-- PESTA√ëAS -->
+          <!-- PESTA—AS -->
           <div class="pt-2 categoria-servicios">
-            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Pesta√±as</h3>
+            <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">PestaÒas</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Lifting" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Lifting" data-precio="17999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Lifting</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$17.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Lifting + tinte" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Lifting + tinte" data-precio="21999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Lifting + tinte</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$21.999</span>
               </label>
             </div>
           </div>
@@ -114,29 +114,29 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Cejas</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Laminado" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Laminado" data-precio="17999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Laminado</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$17.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Tinte c/henna" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Tinte c/henna" data-precio="11999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Tinte c/henna</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$11.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Perfilado" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Perfilado" data-precio="11999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Perfilado</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$11.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Laminado + henna + perfilado" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Laminado + henna + perfilado" data-precio="24999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Laminado + henna + perfilado</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$24.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Microblading" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Microblading" data-precio="79999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Microblading</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$79.999</span>
               </label>
             </div>
           </div>
@@ -146,59 +146,59 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Facial</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza facial" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limpieza facial" data-precio="24999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$24.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza facial + Peeling" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Peeling" data-precio="27999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Peeling</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$27.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza facial + Dermaplaning" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Dermaplaning" data-precio="29999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Dermaplaning</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$29.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limp. Facial + Peeling + Dermaplaning" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limp. Facial + Peeling + Dermaplaning" data-precio="35999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. Facial + Peeling + Dermaplaning</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$35.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza facial + Microneedling" data-precio="1" class="accent-pink-600 servicio-checkbox">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. facial + Microneedling</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <input type="checkbox" name="servicios" value="Limpieza facial + Microneedling (dermapen)" data-precio="34999" class="accent-pink-600 servicio-checkbox">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Microneedling (dermapen)</p></div>
+                <span class="text-xs font-semibold text-pink-600">$34.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limp. Facial + Dermaplaning + Microneedling" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limp. Facial + Dermaplaning + Microneedling" data-precio="37999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. Facial + Dermaplaning + Microneedling</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$37.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza facial + Bblips labial" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Bblips labial" data-precio="31999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Bblips labial</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$31.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza facial + Radio frecuencia" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limpieza facial + Radio frecuencia" data-precio="23999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza facial + Radio frecuencia</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$23.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Maderoterapia + reflexolog√≠a facial" data-precio="1" class="accent-pink-600 servicio-checkbox">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Maderoterapia + reflexolog√≠a facial</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <input type="checkbox" name="servicios" value="Maderoterapia + reflexologÌa facial" data-precio="25999" class="accent-pink-600 servicio-checkbox">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Maderoterapia + reflexologÌa facial</p></div>
+                <span class="text-xs font-semibold text-pink-600">$25.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Masajes relajantes/drenaje linf√°tico manual" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Masajes relajantes/drenaje linf·tico manual (facial cuello escote)" data-precio="21999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masajes/Drenaje (facial cuello escote)</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$21.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Adicional Hidralips / BBlips" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Adicional Hidralips / BBlips" data-precio="13999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Adicional Hidralips / BBlips</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$13.999</span>
               </label>
             </div>
           </div>
@@ -208,54 +208,54 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Corporal</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza profunda en espalda" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limpieza profunda en espalda" data-precio="19999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza profunda en espalda</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$19.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limp. prof. + Peeling en espalda" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Limp. prof. + Peeling en espalda" data-precio="24999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. prof. + Peeling en espalda</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$24.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limpieza profunda en piernas y gl√∫teos" data-precio="1" class="accent-pink-600 servicio-checkbox">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza profunda en piernas y gl√∫teos</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <input type="checkbox" name="servicios" value="Limpieza profunda en piernas y gl˙teos" data-precio="19999" class="accent-pink-600 servicio-checkbox">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limpieza profunda en piernas y gl˙teos</p></div>
+                <span class="text-xs font-semibold text-pink-600">$19.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Limp. prof. + Peeling en piernas/gl√∫teos" data-precio="1" class="accent-pink-600 servicio-checkbox">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. prof. + Peeling en piernas/gl√∫teos</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <input type="checkbox" name="servicios" value="Limp. profunda + Peeling en piernas y gl˙teos" data-precio="24999" class="accent-pink-600 servicio-checkbox">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Limp. prof. + Peeling en piernas/gl˙teos</p></div>
+                <span class="text-xs font-semibold text-pink-600">$24.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Masaje relajantes" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Masaje relajantes" data-precio="15999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje relajantes</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$15.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Masaje modelador + Drenaje linf√°tico" data-precio="1" class="accent-pink-600 servicio-checkbox">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje modelador + Drenaje linf√°tico</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <input type="checkbox" name="servicios" value="Masaje modelador + Drenaje linf·tico (DLM)" data-precio="11999" class="accent-pink-600 servicio-checkbox">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje modelador + Drenaje linf·tico</p></div>
+                <span class="text-xs font-semibold text-pink-600">$11.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Masaje modelador + Radio frec. + DLM" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Masaje modelador + Radio frecuencia + DLM" data-precio="14999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Masaje modelador + Radio frec. + DLM</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$14.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Drenaje linf√°tico en piernas" data-precio="1" class="accent-pink-600 servicio-checkbox">
-                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Drenaje linf√°tico en piernas</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <input type="checkbox" name="servicios" value="Drenaje linf·tico en piernas" data-precio="9999" class="accent-pink-600 servicio-checkbox">
+                <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Drenaje linf·tico en piernas</p></div>
+                <span class="text-xs font-semibold text-pink-600">$9.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Tratamiento piernas cansadas" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Tratamiento piernas cansadas" data-precio="19999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Tratamiento piernas cansadas</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$19.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="Ondas rusas por zona" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="Ondas rusas por zona" data-precio="4999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">Ondas rusas por zona</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$4.999</span>
               </label>
             </div>
           </div>
@@ -265,24 +265,24 @@
             <h3 class="text-xs font-bold text-pink-600 uppercase tracking-wider mb-2 ml-1">Packs de Sesiones</h3>
             <div class="space-y-2">
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="6 sesiones limp. fac. + radio frecuencia" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="6 sesiones de limp. fac. + radio frecuencia" data-precio="89999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">6 sesiones limp. fac. + radio frecuencia</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$89.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="6 sesiones limp. facial + Peeling" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="6 sesiones de limpieza facial + Peeling" data-precio="119999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">6 sesiones limp. facial + Peeling</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$119.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="6 sesiones masaje reductores" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="6 sesiones de masaje reductores C/ radio frecuencia o ondas rusas" data-precio="79999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">6 sesiones masaje reductores (radio frec./ondas)</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$79.999</span>
               </label>
               <label class="flex justify-between items-center p-3 rounded-xl border-2 border-gray-200 bg-white cursor-pointer hover:border-gray-300">
-                <input type="checkbox" name="servicios" value="4 sesiones masaje reductores" data-precio="1" class="accent-pink-600 servicio-checkbox">
+                <input type="checkbox" name="servicios" value="4 sesiones de masaje reductores C/radio frecuencia o ondas rusas" data-precio="49999" class="accent-pink-600 servicio-checkbox">
                 <div class="ml-2 flex-1"><p class="font-medium text-gray-800 text-sm">4 sesiones masaje reductores (radio frec./ondas)</p></div>
-                <span class="text-xs font-semibold text-pink-600">$1</span>
+                <span class="text-xs font-semibold text-pink-600">$49.999</span>
               </label>
             </div>
           </div>
@@ -293,20 +293,20 @@
       <!-- 2. FECHA Y HORA -->
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">2. Eleg√≠ el d√≠a (Martes a S√°bados)</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">2. ElegÌ el dÌa (Martes a S·bados)</label>
           <input type="date" id="fecha" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">3. Eleg√≠ el horario</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">3. ElegÌ el horario</label>
           <select id="hora" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
-            <option value="">Primero eleg√≠ una fecha</option>
+            <option value="">Primero elegÌ una fecha</option>
           </select>
         </div>
       </div>
 
       <!-- 3. DATOS DE CONTACTO -->
       <div class="space-y-3 pt-2 border-t border-gray-100">
-        <label class="block text-sm font-medium text-gray-700">4. Complet√° tus datos</label>
+        <label class="block text-sm font-medium text-gray-700">4. Complet· tus datos</label>
         <input type="text" id="nombre" placeholder="Tu nombre y apellido" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
         <input type="tel" id="whatsapp" placeholder="WhatsApp (ej: 3416123456)" required class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
       </div>
@@ -317,16 +317,16 @@
         <textarea id="notas" rows="2" placeholder="Ej: Tengo retiro de service anterior, piel sensible, alergias, etc..." class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 resize-none"></textarea>
       </div>
 
-      <!-- 5. PASO 6: OPCI√ìN DE PAGO -->
+      <!-- 5. PASO 6: OPCI”N DE PAGO -->
       <div class="space-y-3 pt-2 border-t border-gray-100">
-        <label class="block text-sm font-medium text-gray-700">6. Eleg√≠ tu opci√≥n de pago</label>
+        <label class="block text-sm font-medium text-gray-700">6. ElegÌ tu opciÛn de pago</label>
         <div class="grid grid-cols-1 gap-2.5">
           <label class="flex items-center justify-between p-3.5 rounded-xl border-2 border-pink-200 bg-pink-50/30 cursor-pointer hover:border-pink-400 transition">
             <div class="flex items-center space-x-3">
               <input type="radio" name="pago" value="completo" checked class="accent-pink-600 focus:ring-pink-500 opcion-pago">
               <div>
                 <p class="font-semibold text-gray-800 text-sm">Pago Completo <span class="bg-pink-100 text-pink-700 text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ml-1">10% OFF</span></p>
-                <p class="text-xs text-gray-500">Abon√° el total ahora con descuento especial</p>
+                <p class="text-xs text-gray-500">Abon· el total ahora con descuento especial</p>
               </div>
             </div>
           </label>
@@ -335,8 +335,8 @@
             <div class="flex items-center space-x-3">
               <input type="radio" name="pago" value="sena" class="accent-pink-600 focus:ring-pink-500 opcion-pago">
               <div>
-                <p class="font-semibold text-gray-800 text-sm">Se√±a del turno (50%)</p>
-                <p class="text-xs text-gray-500">Asegur√° tu lugar y abon√°s el resto en gabinete</p>
+                <p class="font-semibold text-gray-800 text-sm">SeÒa del turno (50%)</p>
+                <p class="text-xs text-gray-500">Asegur· tu lugar y abon·s el resto en gabinete</p>
               </div>
             </div>
           </label>
@@ -369,12 +369,12 @@
     </form>
   </div>
 
-  <!-- FIREBASE SDK (Versi√≥n Compat) -->
+  <!-- FIREBASE SDK (VersiÛn Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
   <script>
-    // Configuraci√≥n e Inicializaci√≥n de Firebase
+    // ConfiguraciÛn e InicializaciÛn de Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBMqTpXFcSbP0LFE_Lhd_q7XOio5LK9bfs",
       authDomain: "ohana-c48ce.firebaseapp.com",
@@ -419,17 +419,17 @@
     const dd = String(hoy.getDate()).padStart(2, '0');
     fechaInput.min = `${yyyy}-${mm}-${dd}`;
 
-    // 2. Control de d√≠as y filtrado de horarios ocupados
+    // 2. Control de dÌas y filtrado de horarios ocupados
     fechaInput.addEventListener('change', async function() {
       if (!this.value) return;
       
       const fechaSeleccionada = new Date(this.value + 'T12:00:00');
-      const diaSemana = fechaSeleccionada.getDay(); // 0: Dom, 1: Lun, 2: Mar, 3: Mi√©, 4: Jue, 5: Vie, 6: S√°b
+      const diaSemana = fechaSeleccionada.getDay(); // 0: Dom, 1: Lun, 2: Mar, 3: MiÈ, 4: Jue, 5: Vie, 6: S·b
 
       if (diaSemana === 0 || diaSemana === 1) {
-        alert('El gabinete permanece cerrado los d√≠as domingo y lunes. Por favor, eleg√≠ un d√≠a de martes a s√°bado.');
+        alert('El gabinete permanece cerrado los dÌas domingo y lunes. Por favor, elegÌ un dÌa de martes a s·bado.');
         this.value = '';
-        horaSelect.innerHTML = '<option value="">Primero eleg√≠ una fecha</option>';
+        horaSelect.innerHTML = '<option value="">Primero elegÌ una fecha</option>';
         return;
       }
 
@@ -457,9 +457,9 @@
         // Filtrar horarios libres
         const horariosLibres = horariosDisponibles.filter(h => !horariosOcupados.includes(h));
 
-        horaSelect.innerHTML = '<option value="">Seleccion√° un horario</option>';
+        horaSelect.innerHTML = '<option value="">Seleccion· un horario</option>';
         if (horariosLibres.length === 0) {
-          horaSelect.innerHTML = '<option value="">Sin horarios disponibles para este d√≠a</option>';
+          horaSelect.innerHTML = '<option value="">Sin horarios disponibles para este dÌa</option>';
           return;
         }
 
@@ -498,7 +498,7 @@
       });
     });
 
-    // 4. Funci√≥n centralizada para recalcular montos de pago
+    // 4. FunciÛn centralizada para recalcular montos de pago
     function calcularTotales() {
       subtotalCalculado = 0;
       checkboxesServicios.forEach(cb => {
@@ -510,7 +510,7 @@
       const modoPago = document.querySelector('input[name="pago"]:checked').value;
 
       if (modoPago === 'completo') {
-        descuentoCalculado = subtotalCalculado * 0.10;
+        descuentoCalculado = Math.round(subtotalCalculado * 0.10);
         montoAhoraCalculado = subtotalCalculado - descuentoCalculado;
         montoRestanteCalculado = 0;
 
@@ -518,20 +518,20 @@
         filaRestante.classList.add('hidden');
       } else {
         descuentoCalculado = 0;
-        montoAhoraCalculado = subtotalCalculado * 0.50; // Se√±a del 50%
+        montoAhoraCalculado = Math.round(subtotalCalculado * 0.50); // SeÒa del 50%
         montoRestanteCalculado = subtotalCalculado - montoAhoraCalculado;
 
         filaDescuento.classList.add('hidden');
         filaRestante.classList.remove('hidden');
       }
 
-      resumenSubtotal.textContent = `$${subtotalCalculado}`;
-      resumenDescuento.textContent = `-$${descuentoCalculado}`;
-      resumenRestante.textContent = `$${montoRestanteCalculado}`;
-      resumenTotalAhora.textContent = `$${montoAhoraCalculado}`;
+      resumenSubtotal.textContent = `$${subtotalCalculado.toLocaleString('es-AR')}`;
+      resumenDescuento.textContent = `-$${descuentoCalculado.toLocaleString('es-AR')}`;
+      resumenRestante.textContent = `$${montoRestanteCalculado.toLocaleString('es-AR')}`;
+      resumenTotalAhora.textContent = `$${montoAhoraCalculado.toLocaleString('es-AR')}`;
     }
 
-    // Listeners para rec√°lculo din√°mico
+    // Listeners para rec·lculo din·mico
     checkboxesServicios.forEach(cb => cb.addEventListener('change', calcularTotales));
     opcionesPago.forEach(radio => radio.addEventListener('change', calcularTotales));
 
@@ -541,7 +541,7 @@
 
       const serviciosSeleccionados = document.querySelectorAll('input[name="servicios"]:checked');
       if (serviciosSeleccionados.length === 0) {
-        alert("¬°Atenci√≥n! Por favor, seleccion√° al menos un servicio de la lista.");
+        alert("°AtenciÛn! Por favor, seleccion· al menos un servicio de la lista.");
         return;
       }
 
@@ -555,10 +555,10 @@
       const whatsapp = document.getElementById('whatsapp').value;
       const notas = document.getElementById('notas').value.trim();
       const modoPago = document.querySelector('input[name="pago"]:checked').value;
-      const textoFormaPago = modoPago === 'completo' ? 'Pago Completo (10% OFF)' : 'Se√±a del turno (50%)';
+      const textoFormaPago = modoPago === 'completo' ? 'Pago Completo (10% OFF)' : 'SeÒa del turno (50%)';
 
       if (!hora) {
-        alert("Por favor seleccion√° un horario v√°lido.");
+        alert("Por favor seleccion· un horario v·lido.");
         return;
       }
 
@@ -567,7 +567,7 @@
       btnSubmit.disabled = true;
 
       try {
-        // Segunda verificaci√≥n de seguridad antes de guardar
+        // Segunda verificaciÛn de seguridad antes de guardar
         const checkSnapshot = await db.ref('turnos').orderByChild('fecha').equalTo(fecha).once('value');
         let yaReservado = false;
 
@@ -576,7 +576,7 @@
         });
 
         if (yaReservado) {
-          alert("¬°Lo sentimos! Alguien acaba de reservar ese horario. Por favor eleg√≠ otro.");
+          alert("°Lo sentimos! Alguien acaba de reservar ese horario. Por favor elegÌ otro.");
           btnSubmit.innerHTML = "Confirmar Reserva";
           btnSubmit.disabled = false;
           fechaInput.dispatchEvent(new Event('change')); // Recargar horarios libres
@@ -601,19 +601,19 @@
         });
 
         const fechaFormateada = fecha.split('-').reverse().join('/');
-        const textoNotas = notas ? `\nüìù *Notas:* ${notas}` : '';
-        const detalleRestante = montoRestanteCalculado > 0 ? `\nüí∞ *Saldo restante en gabinete:* $${montoRestanteCalculado}` : '';
+        const textoNotas = notas ? `\n *Notas:* ${notas}` : '';
+        const detalleRestante = montoRestanteCalculado > 0 ? `\n *Saldo restante en gabinete:* $${montoRestanteCalculado.toLocaleString('es-AR')}` : '';
 
-        const textoMensaje = `¬°Hola! üëã Solicit√© un turno desde la web:\n\nüë§ *Nombre:* ${nombre}\n‚ú® *Servicios:* ${servicio}\nüìÖ *Fecha:* ${fechaFormateada}\n‚è∞ *Hora:* ${hora} hs\nüí≥ *Opci√≥n de Pago:* ${textoFormaPago}\nüíµ *Monto a abonar ahora:* $${montoAhoraCalculado}${detalleRestante}\nüì± *WhatsApp:* ${whatsapp}${textoNotas}\n\nQuedo a la espera de los datos de transferencia para confirmar mi turno. ¬°Muchas gracias!`;
+        const textoMensaje = `°Hola!  SolicitÈ un turno desde la web:\n\n *Nombre:* ${nombre}\n *Servicios:* ${servicio}\n *Fecha:* ${fechaFormateada}\n *Hora:* ${hora} hs\n *OpciÛn de Pago:* ${textoFormaPago}\n *Monto a abonar ahora:* $${montoAhoraCalculado.toLocaleString('es-AR')}${detalleRestante}\n *WhatsApp:* ${whatsapp}${textoNotas}\n\nQuedo a la espera de los datos de transferencia para confirmar mi turno. °Muchas gracias!`;
         const urlWhatsApp = `https://wa.me/5493412243743?text=` + encodeURIComponent(textoMensaje);
 
         document.getElementById('app').innerHTML = `
           <div class="text-center py-8">
-            <div class="text-5xl mb-4 text-emerald-500">‚úÖ</div>
-            <h2 class="text-2xl font-bold text-gray-800 mb-2">¬°Turno Guardado!</h2>
-            <p class="text-gray-600 mb-6">Hola ${nombre}, tu solicitud qued√≥ registrada. Para finalizar, abon√°s ahora <strong>$${montoAhoraCalculado}</strong> (${textoFormaPago}). Toc√° el bot√≥n para enviarme los detalles por WhatsApp.</p>
+            <div class="text-5xl mb-4 text-emerald-500"></div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">°Turno Guardado!</h2>
+            <p class="text-gray-600 mb-6">Hola ${nombre}, tu solicitud quedÛ registrada. Para finalizar, abon·s ahora <strong>$${montoAhoraCalculado.toLocaleString('es-AR')}</strong> (${textoFormaPago}). Toc· el botÛn para enviarme los detalles por WhatsApp.</p>
             <a href="${urlWhatsApp}" target="_blank" class="inline-block w-full bg-emerald-600 text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-700 transition text-center shadow-lg mb-4">
-              üì≤ Enviar por WhatsApp
+               Enviar por WhatsApp
             </a>
             <button onclick="window.location.reload()" class="w-full text-sm text-gray-400 hover:text-gray-600 transition underline">Pedir otro turno</button>
           </div>
@@ -623,7 +623,7 @@
 
       } catch (error) {
         console.error(error);
-        alert("Hubo un error al guardar el turno. Intent√° nuevamente.");
+        alert("Hubo un error al guardar el turno. Intent· nuevamente.");
         btnSubmit.innerHTML = "Confirmar Reserva";
         btnSubmit.disabled = false;
       }
@@ -633,7 +633,7 @@
     // PANEL DE ADMINISTRADORA
     // ==========================================
     document.getElementById('btn-admin').addEventListener('click', () => {
-      const clave = prompt("Ingres√° tu clave de administradora:");
+      const clave = prompt("Ingres· tu clave de administradora:");
       if (clave === CLAVE_ADMIN) {
         cargarPanelAdmin();
       } else if (clave !== null) {
@@ -648,7 +648,7 @@
           <div class="flex justify-between items-center border-b pb-3">
             <h2 class="text-xl font-bold text-gray-800">Panel de Turnos</h2>
             <button onclick="window.location.reload()" class="text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg transition font-medium">
-              üîô Volver
+               Volver
             </button>
           </div>
           <div id="lista-turnos" class="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar pr-1">
@@ -662,7 +662,7 @@
       try {
         const snapshot = await db.ref('turnos').once('value');
         if (!snapshot.exists()) {
-          listaTurnos.innerHTML = '<p class="text-center text-gray-400 text-sm py-8">No hay turnos registrados todav√≠a.</p>';
+          listaTurnos.innerHTML = '<p class="text-center text-gray-400 text-sm py-8">No hay turnos registrados todavÌa.</p>';
           return;
         }
 
@@ -677,6 +677,10 @@
         listaTurnos.innerHTML = '';
         turnosArr.forEach(t => {
           const fechaForm = t.fecha ? t.fecha.split('-').reverse().join('/') : 'Sin fecha';
+          const subTotalVal = t.subtotal || t.total || 0;
+          const montoAhoraVal = t.montoAbonarAhora || t.total || 0;
+          const montoRestanteVal = t.montoRestante || 0;
+
           const card = document.createElement('div');
           card.className = "p-3.5 bg-gray-50 rounded-xl border border-gray-200 text-xs space-y-2 relative";
           
@@ -687,20 +691,20 @@
                 <p class="font-bold text-gray-800 text-sm mt-0.5">${t.nombre || 'Sin Nombre'}</p>
               </div>
               <button onclick="eliminarTurno('${t.key}')" class="text-red-500 hover:text-red-700 text-xs font-semibold px-2 py-1 bg-red-50 hover:bg-red-100 rounded-md transition" title="Eliminar / Cancelar Turno">
-                üóëÔ∏è Borrar
+                 Borrar
               </button>
             </div>
             <p class="text-gray-600"><strong>Servicios:</strong> ${t.servicio}</p>
             <p class="text-gray-600"><strong>Pago:</strong> ${t.formaPago || 'Sin especificar'}</p>
             <div class="bg-white p-2 rounded-lg border border-gray-100 text-[11px] space-y-1">
-              <p>Abonado/Se√±a: <strong class="text-emerald-600">$${t.montoAbonarAhora || t.total || 0}</strong></p>
-              ${t.montoRestante > 0 ? `<p>Resta pagar en gabinete: <strong class="text-amber-600">$${t.montoRestante}</strong></p>` : ''}
+              <p>Abonado/SeÒa: <strong class="text-emerald-600">$${montoAhoraVal.toLocaleString('es-AR')}</strong></p>
+              ${montoRestanteVal > 0 ? `<p>Resta pagar en gabinete: <strong class="text-amber-600">$${montoRestanteVal.toLocaleString('es-AR')}</strong></p>` : ''}
             </div>
             ${t.notas && t.notas !== 'Sin observaciones' ? `<p class="text-gray-600 bg-amber-50 border border-amber-200 p-2 rounded-lg"><strong>Notas:</strong> ${t.notas}</p>` : ''}
             <div class="flex justify-between items-center pt-1 border-t border-gray-200/60">
-              <span class="font-bold text-gray-700">Subtotal: $${t.subtotal || t.total || 0}</span>
-              <a href="https://wa.me/${t.whatsapp}?text=${encodeURIComponent(`¬°Hola ${t.nombre}! ‚ú® Te confirmo tu turno para el ${fechaForm} a las ${t.hora} hs en Cosmetolog√≠a Ohana. ¬°Te espero!`)}" target="_blank" class="bg-emerald-600 text-white px-2.5 py-1 rounded-lg text-xs font-semibold hover:bg-emerald-700 transition">
-                üí¨ WhatsApp
+              <span class="font-bold text-gray-700">Subtotal: $${subTotalVal.toLocaleString('es-AR')}</span>
+              <a href="https://wa.me/${t.whatsapp}?text=${encodeURIComponent(`°Hola ${t.nombre}!  Te confirmo tu turno para el ${fechaForm} a las ${t.hora} hs en CosmetologÌa Ohana. °Te espero!`)}" target="_blank" class="bg-emerald-600 text-white px-2.5 py-1 rounded-lg text-xs font-semibold hover:bg-emerald-700 transition">
+                 WhatsApp
               </a>
             </div>
           `;
@@ -713,9 +717,9 @@
       }
     }
 
-    // Funci√≥n para eliminar un turno desde el panel
+    // FunciÛn para eliminar un turno desde el panel
     window.eliminarTurno = async function(key) {
-      if (confirm("¬øEst√°s segura de eliminar/cancelar este turno? El horario volver√° a quedar libre.")) {
+      if (confirm("øEst·s segura de eliminar/cancelar este turno? El horario volver· a quedar libre.")) {
         try {
           await db.ref('turnos/' + key).remove();
           cargarPanelAdmin(); // Recargar el panel
