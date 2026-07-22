@@ -4,10 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Turnos - Cosmetología Ohana</title>
-  <!-- Tailwind CSS para el diseño estético -->
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Estilo para el scrollbar */
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #fbcfe8; border-radius: 10px; }
@@ -17,7 +15,6 @@
 
   <div id="app" class="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-100 p-6 relative">
     
-    <!-- BOTÓN DE ACCESO ADMINISTRADORA -->
     <button id="btn-admin" title="Acceso Administradora" class="absolute top-5 right-5 text-gray-400 hover:text-pink-600 transition p-1 text-xl">
       ⚙️
     </button>
@@ -32,12 +29,10 @@
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-2">1. Seleccioná los servicios</label>
         
-        <!-- Buscador -->
         <div class="mb-3">
           <input type="text" id="buscador-servicios" placeholder="🔍 Buscar servicio..." class="w-full p-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 transition">
         </div>
 
-        <!-- Contenedor con scroll -->
         <div class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar border border-gray-100 p-2 rounded-xl bg-gray-50/50">
           
           <!-- MANOS Y UÑAS -->
@@ -317,7 +312,7 @@
         <textarea id="notas" rows="2" placeholder="Ej: Tengo retiro de service anterior, piel sensible, alergias, etc..." class="w-full p-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500 resize-none"></textarea>
       </div>
 
-      <!-- 5. PASO 6: OPCIÓN DE PAGO -->
+      <!-- 5. OPCIÓN DE PAGO -->
       <div class="space-y-3 pt-2 border-t border-gray-100">
         <label class="block text-sm font-medium text-gray-700">6. Opción de pago (Alias: <strong class="text-pink-600">CINTIA.DERAMO.MP</strong>)</label>
         
@@ -343,7 +338,6 @@
           </label>
         </div>
 
-        <!-- CARTEL DESGLOSE DE MONTO DE PAGO -->
         <div id="resumen-pago-box" class="p-3.5 bg-gray-50 border border-gray-200 rounded-xl space-y-1.5 text-xs text-gray-700 mt-3">
           <div class="flex justify-between">
             <span>Subtotal servicios:</span>
@@ -365,27 +359,16 @@
         </div>
       </div>
 
-      <!-- 6. PASO 7: COMPROBANTE -->
-      <div class="space-y-3 pt-4 border-t border-gray-100">
-        <label class="block text-sm font-medium text-gray-700">7. Adjuntá tu comprobante de pago</label>
-        <input type="file" id="comprobante" accept="image/*,.pdf" required class="w-full p-2 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-pink-500">
-        <p class="text-[11px] text-gray-500">Formatos permitidos: JPG, PNG o PDF.</p>
-      </div>
-
       <button type="submit" class="w-full bg-pink-600 text-white py-3.5 rounded-xl font-semibold hover:bg-pink-700 transition shadow-md mt-4">
-        Confirmar Reserva y Enviar Comprobante
+        Confirmar Reserva y Enviar WhatsApp
       </button>
     </form>
   </div>
 
-  <!-- FIREBASE SDK (Versión Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
-  <!-- SCRIPT PARA SUBIR IMÁGENES -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
   <script>
-    // Configuración e Inicialización de Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBMqTpXFcSbP0LFE_Lhd_q7XOio5LK9bfs",
       authDomain: "ohana-c48ce.firebaseapp.com",
@@ -400,7 +383,6 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // CLAVE DE ACCESO DE ADMINISTRADORA
     const CLAVE_ADMIN = "1585";
 
     const fechaInput = document.getElementById('fecha');
@@ -409,7 +391,6 @@
     const checkboxesServicios = document.querySelectorAll('.servicio-checkbox');
     const opcionesPago = document.querySelectorAll('.opcion-pago');
 
-    // Elementos del desglose de pago
     const resumenSubtotal = document.getElementById('resumen-subtotal');
     const resumenDescuento = document.getElementById('resumen-descuento');
     const resumenRestante = document.getElementById('resumen-restante');
@@ -417,25 +398,22 @@
     const filaDescuento = document.getElementById('fila-descuento');
     const filaRestante = document.getElementById('fila-restante');
 
-    // Variables globales de importes
     let subtotalCalculado = 0;
     let montoAhoraCalculado = 0;
     let montoRestanteCalculado = 0;
     let descuentoCalculado = 0;
 
-    // 1. Bloquear fechas pasadas
     const hoy = new Date();
     const yyyy = hoy.getFullYear();
     const mm = String(hoy.getMonth() + 1).padStart(2, '0');
     const dd = String(hoy.getDate()).padStart(2, '0');
     fechaInput.min = `${yyyy}-${mm}-${dd}`;
 
-    // 2. Control de días y filtrado de horarios ocupados
     fechaInput.addEventListener('change', async function() {
       if (!this.value) return;
       
       const fechaSeleccionada = new Date(this.value + 'T12:00:00');
-      const diaSemana = fechaSeleccionada.getDay(); // 0: Dom, 1: Lun, 2: Mar, 3: Mié, 4: Jue, 5: Vie, 6: Sáb
+      const diaSemana = fechaSeleccionada.getDay(); 
 
       if (diaSemana === 0 || diaSemana === 1) {
         alert('El gabinete permanece cerrado los días domingo y lunes. Por favor, elegí un día de martes a sábado.');
@@ -485,7 +463,6 @@
       }
     });
 
-    // 3. Buscador en vivo de servicios
     buscadorInput.addEventListener('input', function(e) {
       const termino = e.target.value.toLowerCase();
       const categorias = document.querySelectorAll('.categoria-servicios');
@@ -507,7 +484,6 @@
       });
     });
 
-    // 4. Función centralizada para recalcular montos de pago
     function calcularTotales() {
       subtotalCalculado = 0;
       checkboxesServicios.forEach(cb => {
@@ -543,19 +519,12 @@
     checkboxesServicios.forEach(cb => cb.addEventListener('change', calcularTotales));
     opcionesPago.forEach(radio => radio.addEventListener('change', calcularTotales));
 
-    // 5. Enviar formulario de reserva
     document.getElementById('form-turno').addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const serviciosSeleccionados = document.querySelectorAll('input[name="servicios"]:checked');
       if (serviciosSeleccionados.length === 0) {
         alert("¡Atención! Por favor, seleccioná al menos un servicio de la lista.");
-        return;
-      }
-
-      const comprobanteFile = document.getElementById('comprobante').files[0];
-      if (!comprobanteFile) {
-        alert("¡Atención! Por favor, adjuntá el comprobante de pago antes de continuar.");
         return;
       }
 
@@ -577,11 +546,10 @@
       }
 
       const btnSubmit = e.target.querySelector('button[type="submit"]');
-      btnSubmit.innerHTML = "Subiendo comprobante y reservando... ⏳";
+      btnSubmit.innerHTML = "Procesando reserva... ⏳";
       btnSubmit.disabled = true;
 
       try {
-        // Verificar disponibilidad de horario nuevamente
         const checkSnapshot = await db.ref('turnos').orderByChild('fecha').equalTo(fecha).once('value');
         let yaReservado = false;
 
@@ -591,30 +559,12 @@
 
         if (yaReservado) {
           alert("¡Lo sentimos! Alguien acaba de reservar ese horario. Por favor elegí otro.");
-          btnSubmit.innerHTML = "Confirmar Reserva y Enviar Comprobante";
+          btnSubmit.innerHTML = "Confirmar Reserva y Enviar WhatsApp";
           btnSubmit.disabled = false;
           fechaInput.dispatchEvent(new Event('change'));
           return;
         }
 
-        // Subir comprobante a Storage
-        let urlComprobante = "";
-        try {
-          const storageRef = firebase.storage().ref();
-          const nombreArchivo = `comprobantes/${Date.now()}_${comprobanteFile.name}`;
-          const fileRef = storageRef.child(nombreArchivo);
-          
-          await fileRef.put(comprobanteFile);
-          urlComprobante = await fileRef.getDownloadURL();
-        } catch (error) {
-          console.error("Error subiendo el archivo:", error);
-          alert("Hubo un problema al subir la imagen. Por favor, intentá de nuevo.");
-          btnSubmit.innerHTML = "Confirmar Reserva y Enviar Comprobante";
-          btnSubmit.disabled = false;
-          return;
-        }
-
-        // Guardar turno en Realtime Database
         await db.ref('turnos').push({
           servicio,
           subtotal: subtotalCalculado,
@@ -628,28 +578,25 @@
           whatsapp,
           notas: notas || 'Sin observaciones',
           estado: "pendiente",
-          comprobanteURL: urlComprobante, // Acá se guarda el link de la imagen
           creadoEl: new Date().toISOString()
         });
 
-        // Formatear mensaje de WhatsApp
         const fechaFormateada = fecha.split('-').reverse().join('/');
         const textoNotas = notas ? `\n📝 *Notas:* ${notas}` : '';
         const detalleRestante = montoRestanteCalculado > 0 ? `\n💰 *Saldo restante en gabinete:* $${montoRestanteCalculado.toLocaleString('es-AR')}` : '';
 
-        const textoMensaje = `¡Hola! 👋 Solicité un turno en la web y realicé la transferencia al alias *CINTIA.DERAMO.MP*:\n\n👤 *Nombre:* ${nombre}\n✨ *Servicios:* ${servicio}\n📅 *Fecha:* ${fechaFormateada}\n⏰ *Hora:* ${hora} hs\n💳 *Opción:* ${textoFormaPago}\n💵 *Monto transferido:* $${montoAhoraCalculado.toLocaleString('es-AR')}${detalleRestante}\n📱 *WhatsApp:* ${whatsapp}${textoNotas}\n\n📎 *Ver comprobante adjunto:* ${urlComprobante}\n\n¡Muchas gracias!`;
+        const textoMensaje = `¡Hola! 👋 Solicité un turno en la web y realicé la transferencia al alias *CINTIA.DERAMO.MP*:\n\n👤 *Nombre:* ${nombre}\n✨ *Servicios:* ${servicio}\n📅 *Fecha:* ${fechaFormateada}\n⏰ *Hora:* ${hora} hs\n💳 *Opción:* ${textoFormaPago}\n💵 *Monto transferido:* $${montoAhoraCalculado.toLocaleString('es-AR')}${detalleRestante}\n📱 *WhatsApp:* ${whatsapp}${textoNotas}\n\n📎 *Por favor, adjuntá la foto del comprobante de transferencia en este chat.*\n\n¡Muchas gracias!`;
         
         const urlWhatsApp = `https://wa.me/5493412243743?text=` + encodeURIComponent(textoMensaje);
 
-        // Mostrar cartel de éxito
         document.getElementById('app').innerHTML = `
           <div class="text-center py-8">
             <div class="text-5xl mb-4 text-emerald-500">✅</div>
             <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Turno Registrado!</h2>
             <p class="text-gray-600 mb-4">Hola ${nombre}, registramos tu transferencia de <strong>$${montoAhoraCalculado.toLocaleString('es-AR')}</strong> (${textoFormaPago}) al alias <strong class="text-pink-600">CINTIA.DERAMO.MP</strong>.</p>
-            <p class="text-xs text-gray-500 mb-6">Tocá el botón para enviar el mensaje y notificar tu comprobante por WhatsApp.</p>
+            <p class="text-xs text-gray-500 mb-6">Tocá el botón para enviarnos el mensaje y no te olvides de adjuntar ahí mismo tu foto del comprobante.</p>
             <a href="${urlWhatsApp}" target="_blank" class="inline-block w-full bg-emerald-600 text-white py-3.5 rounded-xl font-semibold hover:bg-emerald-700 transition text-center shadow-lg mb-4">
-              📲 Enviar Comprobante por WhatsApp
+              📲 Abrir WhatsApp y enviar comprobante
             </a>
             <button onclick="window.location.reload()" class="w-full text-sm text-gray-400 hover:text-gray-600 transition underline">Pedir otro turno</button>
           </div>
@@ -660,14 +607,11 @@
       } catch (error) {
         console.error(error);
         alert("Hubo un error al guardar el turno. Intentá nuevamente.");
-        btnSubmit.innerHTML = "Confirmar Reserva y Enviar Comprobante";
+        btnSubmit.innerHTML = "Confirmar Reserva y Enviar WhatsApp";
         btnSubmit.disabled = false;
       }
     });
 
-    // ==========================================
-    // PANEL DE ADMINISTRADORA
-    // ==========================================
     document.getElementById('btn-admin').addEventListener('click', () => {
       const clave = prompt("Ingresá tu clave de administradora:");
       if (clave === CLAVE_ADMIN) {
@@ -734,7 +678,6 @@
             <div class="bg-white p-2 rounded-lg border border-gray-100 text-[11px] space-y-1">
               <p>Transferido (Alias CINTIA.DERAMO.MP): <strong class="text-emerald-600">$${montoAhoraVal.toLocaleString('es-AR')}</strong></p>
               ${montoRestanteVal > 0 ? `<p>Resta pagar en gabinete: <strong class="text-amber-600">$${montoRestanteVal.toLocaleString('es-AR')}</strong></p>` : ''}
-              ${t.comprobanteURL ? `<a href="${t.comprobanteURL}" target="_blank" class="text-pink-600 hover:text-pink-800 underline mt-1.5 inline-block font-semibold">📄 Ver foto del comprobante</a>` : ''}
             </div>
             ${t.notas && t.notas !== 'Sin observaciones' ? `<p class="text-gray-600 bg-amber-50 border border-amber-200 p-2 rounded-lg"><strong>Notas:</strong> ${t.notas}</p>` : ''}
             <div class="flex justify-between items-center pt-1 border-t border-gray-200/60 mt-1">
